@@ -34,7 +34,7 @@
 int main(void)
 {
 	int enter=0;
-    // float temp;
+    // float t       emp;
     SysTick_Init();		//—” ±≥ı ºªØ
     LEDGpio_Init();			
     BEEPGpio_Init();

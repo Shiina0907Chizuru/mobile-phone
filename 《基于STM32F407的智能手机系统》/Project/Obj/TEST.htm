@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Obj\TEST.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Obj\TEST.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060061: Last Updated: Sat Nov 30 21:01:45 2024
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060061: Last Updated: Sun Dec 01 16:23:00 2024
 <BR><P>
 <H3>Maximum Stack Usage =        520 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -2027,6 +2027,7 @@ Global Symbols
 <LI><a href="#[f9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_WriteRAM_Prepare
 </UL>
 <BR>[Called By]<UL><LI><a href="#[113]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gui_draw_hline
+<LI><a href="#[110]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ctp_test2
 </UL>
 
 <P><STRONG><a name="[101]"></a>LCD_Color_Fill</STRONG> (Thumb, 92 bytes, Stack size 40 bytes, lcd.o(.text), UNUSED)
@@ -2184,14 +2185,15 @@ Global Symbols
 <LI><a href="#[116]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Light
 </UL>
 
-<P><STRONG><a name="[110]"></a>ctp_test2</STRONG> (Thumb, 2158 bytes, Stack size 88 bytes, lcd.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 176<LI>Call Chain = ctp_test2 &rArr; __aeabi_dsub &rArr; __aeabi_dadd &rArr; _double_epilogue &rArr; _double_round
+<P><STRONG><a name="[110]"></a>ctp_test2</STRONG> (Thumb, 2210 bytes, Stack size 96 bytes, lcd.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 184<LI>Call Chain = ctp_test2 &rArr; __aeabi_dsub &rArr; __aeabi_dadd &rArr; _double_epilogue &rArr; _double_round
 </UL>
 <BR>[Calls]<UL><LI><a href="#[71]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_ms
 <LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_Draw_Circle
 <LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ui2d
 <LI><a href="#[111]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dsub
 <LI><a href="#[112]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2uiz
+<LI><a href="#[100]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_Fill
 </UL>
 <BR>[Called By]<UL><LI><a href="#[73]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;In
 </UL>
@@ -2215,7 +2217,7 @@ Global Symbols
 <LI><a href="#[116]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Light
 </UL>
 
-<P><STRONG><a name="[115]"></a>close</STRONG> (Thumb, 262 bytes, Stack size 40 bytes, lcd.o(.text))
+<P><STRONG><a name="[115]"></a>close</STRONG> (Thumb, 302 bytes, Stack size 40 bytes, lcd.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 180<LI>Call Chain = close &rArr; LCD_Showcn &rArr; LCD_ShowHzString &rArr; LCD_DrawPointcn &rArr; LCD_SetCursor &rArr; LCD_WR_DATA
 </UL>
 <BR>[Calls]<UL><LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_Draw_Circle
@@ -2226,8 +2228,8 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[73]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;In
 </UL>
 
-<P><STRONG><a name="[73]"></a>In</STRONG> (Thumb, 300 bytes, Stack size 24 bytes, lcd.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 204<LI>Call Chain = In &rArr; close &rArr; LCD_Showcn &rArr; LCD_ShowHzString &rArr; LCD_DrawPointcn &rArr; LCD_SetCursor &rArr; LCD_WR_DATA
+<P><STRONG><a name="[73]"></a>In</STRONG> (Thumb, 248 bytes, Stack size 24 bytes, lcd.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 208<LI>Call Chain = In &rArr; ctp_test2 &rArr; __aeabi_dsub &rArr; __aeabi_dadd &rArr; _double_epilogue &rArr; _double_round
 </UL>
 <BR>[Calls]<UL><LI><a href="#[71]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_ms
 <LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BEEP2
@@ -2265,7 +2267,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[75]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;apps
 </UL>
 
-<P><STRONG><a name="[117]"></a>photo</STRONG> (Thumb, 460 bytes, Stack size 24 bytes, lcd.o(.text))
+<P><STRONG><a name="[117]"></a>photo</STRONG> (Thumb, 502 bytes, Stack size 24 bytes, lcd.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 120<LI>Call Chain = photo &rArr; LCD_ShowString &rArr; LCD_ShowChar &rArr; LCD_Fast_DrawPoint &rArr; LCD_WR_DATA
 </UL>
 <BR>[Calls]<UL><LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;KeyScan
@@ -2304,7 +2306,7 @@ Global Symbols
 <LI><a href="#[11b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Gps
 </UL>
 
-<P><STRONG><a name="[11b]"></a>Gps</STRONG> (Thumb, 768 bytes, Stack size 128 bytes, lcd.o(.text))
+<P><STRONG><a name="[11b]"></a>Gps</STRONG> (Thumb, 746 bytes, Stack size 128 bytes, lcd.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 328<LI>Call Chain = Gps &rArr; GNGGA_info &rArr; __aeabi_dadd &rArr; _double_epilogue &rArr; _double_round
 </UL>
 <BR>[Calls]<UL><LI><a href="#[d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GSV_info
@@ -2324,7 +2326,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[75]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;apps
 </UL>
 
-<P><STRONG><a name="[11f]"></a>music</STRONG> (Thumb, 1524 bytes, Stack size 40 bytes, lcd.o(.text))
+<P><STRONG><a name="[11f]"></a>music</STRONG> (Thumb, 1520 bytes, Stack size 40 bytes, lcd.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 136<LI>Call Chain = music &rArr; LCD_ShowString &rArr; LCD_ShowChar &rArr; LCD_Fast_DrawPoint &rArr; LCD_WR_DATA
 </UL>
 <BR>[Calls]<UL><LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CH455_Write
@@ -2367,7 +2369,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[75]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;apps
 </UL>
 
-<P><STRONG><a name="[122]"></a>motor</STRONG> (Thumb, 274 bytes, Stack size 120 bytes, lcd.o(.text))
+<P><STRONG><a name="[122]"></a>motor</STRONG> (Thumb, 508 bytes, Stack size 120 bytes, lcd.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 216<LI>Call Chain = motor &rArr; LCD_ShowString &rArr; LCD_ShowChar &rArr; LCD_Fast_DrawPoint &rArr; LCD_WR_DATA
 </UL>
 <BR>[Calls]<UL><LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;KeyScan
@@ -2382,7 +2384,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[75]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;apps
 </UL>
 
-<P><STRONG><a name="[124]"></a>closeforphone</STRONG> (Thumb, 598 bytes, Stack size 40 bytes, lcd.o(.text))
+<P><STRONG><a name="[124]"></a>closeforphone</STRONG> (Thumb, 388 bytes, Stack size 40 bytes, lcd.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 156<LI>Call Chain = closeforphone &rArr; LCD_ShowNum &rArr; LCD_ShowChar &rArr; LCD_Fast_DrawPoint &rArr; LCD_WR_DATA
 </UL>
 <BR>[Calls]<UL><LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_Draw_Circle
@@ -2395,7 +2397,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[125]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;phone
 </UL>
 
-<P><STRONG><a name="[125]"></a>phone</STRONG> (Thumb, 660 bytes, Stack size 168 bytes, lcd.o(.text))
+<P><STRONG><a name="[125]"></a>phone</STRONG> (Thumb, 718 bytes, Stack size 168 bytes, lcd.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 324<LI>Call Chain = phone &rArr; closeforphone &rArr; LCD_ShowNum &rArr; LCD_ShowChar &rArr; LCD_Fast_DrawPoint &rArr; LCD_WR_DATA
 </UL>
 <BR>[Calls]<UL><LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CH455_Write
@@ -2423,7 +2425,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[127]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;timer
 </UL>
 
-<P><STRONG><a name="[127]"></a>timer</STRONG> (Thumb, 1560 bytes, Stack size 248 bytes, lcd.o(.text))
+<P><STRONG><a name="[127]"></a>timer</STRONG> (Thumb, 1514 bytes, Stack size 248 bytes, lcd.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 488<LI>Call Chain = timer &rArr; __hardfp_sin &rArr; __ieee754_rem_pio2 &rArr; __aeabi_dmul &rArr; _double_epilogue &rArr; _double_round
 </UL>
 <BR>[Calls]<UL><LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CH455_Write
@@ -2455,7 +2457,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[75]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;apps
 </UL>
 
-<P><STRONG><a name="[75]"></a>apps</STRONG> (Thumb, 884 bytes, Stack size 24 bytes, lcd.o(.text))
+<P><STRONG><a name="[75]"></a>apps</STRONG> (Thumb, 870 bytes, Stack size 24 bytes, lcd.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 512<LI>Call Chain = apps &rArr; timer &rArr; __hardfp_sin &rArr; __ieee754_rem_pio2 &rArr; __aeabi_dmul &rArr; _double_epilogue &rArr; _double_round
 </UL>
 <BR>[Calls]<UL><LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_SetBits

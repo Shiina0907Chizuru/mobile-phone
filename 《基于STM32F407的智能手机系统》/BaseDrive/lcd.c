@@ -1553,7 +1553,209 @@ void Exit(void)
 }
 
 
-void ctp_test2(u8 sign)//输入密码
+// void ctp_test2(u8 sign)//输入密码
+// {   
+// 	  int step=150;
+// 	  int start_x=40;
+// 	  int start_y=180; 
+// 	  int end_x=140;
+// 	  int end_y=280; 
+// 	  int step2=60;
+//     u8 t = 0;
+//     u8 i = 0;
+// 	  u8 k=0;
+// 	  int flag=0;
+//     u8 confirm_flag = 0;
+//     u16 lastpos[5][2];		//???????
+// 	  u8 r;
+// 	  POINT_COLOR = BLACK;
+//     // while(flag==0)
+//     while(1)
+//     {
+//         tp_dev.scan(0);
+//         for(t = 0; t < 5; t++)
+//         {
+//             if((tp_dev.sta) & (1 << t))
+//             {
+//                 if(tp_dev.x[t] < lcddev.width && tp_dev.y[t] < lcddev.height)
+//                 {
+//                     if(lastpos[t][0] == 0XFFFF)
+//                     {
+//                         lastpos[t][0] = tp_dev.x[t];
+//                         lastpos[t][1] = tp_dev.y[t];
+//                     }
+//                 }
+//             }
+// 				// 		for(i=0;i<8;i++)
+// 				// {
+// 				// 		GPIOF->MODER &= ~(3<<2*i);
+// 				// 		GPIOF->MODER |=1<<(2*i);
+// 				// 		GPIOF->OSPEEDR &= ~(3<<2*i); 
+// 				// 		GPIOF->OSPEEDR |=2<<(2*i);
+// 				// 		GPIOF->PUPDR &= ~(3<<2*i);
+// 				// 		GPIOF->PUPDR |= 1<<(2*i);
+// 				// 		GPIOF->OTYPER &= ~(1<<i);
+// 				// 		GPIOF->OTYPER |= 0<<i;
+// 				// 		GPIOF->ODR |=1<<i;
+// 				// }
+//          if((tp_dev.x[t]>65 && tp_dev.x[t]<155 && tp_dev.y[t]>675 && tp_dev.y[t]<765)&&(confirm_flag==0)){
+//                 confirm_flag=1;
+//             }
+//                 if(tp_dev.x[t]>start_x&&tp_dev.x[t]<end_x&&tp_dev.y[t]>start_y&&tp_dev.y[t]<end_y)  //1
+//                 {
+//                           if(confirm_flag==0) break;//确认
+// 									        // GPIOF->ODR &= ~(1<<0);   //将GPIOF端口的第0位清除为0  
+// 									        password[sign]=1;
+// 									        for(k=0;k<sign+1;k++)
+// 									            for(r=10;r>0;r=r-0.01)
+// 									               LCD_Draw_Circle(150+step2*k,130,r);
+// 									        flag=1;
+//                           confirm_flag=0;//确认
+//                           // break;									
+//                 } 
+//                 else if(tp_dev.x[t]>start_x+step&&tp_dev.x[t]<end_x+step&&tp_dev.y[t]>start_y&&tp_dev.y[t]<end_y)  //2
+//                 {
+//                           if(confirm_flag==0) break;//确认
+// 									        // GPIOF->ODR &= ~(1<<0);   //将GPIOF端口的第0位清除为0  
+// 									        password[sign]=2;
+// 									        for(k=0;k<sign+1;k++)
+// 									            for(r=10;r>0;r=r-0.01)
+// 									               LCD_Draw_Circle(150+step2*k,130,r);
+// 									        flag=1;
+//                           confirm_flag=0;//确认
+//                           // break;		
+//                 } 
+// 								else if(tp_dev.x[t]>start_x+step*2&&tp_dev.x[t]<end_x+step*2&&tp_dev.y[t]>start_y&&tp_dev.y[t]<end_y)  //3
+//                 {
+//                           if(confirm_flag==0) break;//确认
+// 									        // GPIOF->ODR &= ~(1<<0);   //将GPIOF端口的第0位清除为0  
+// 									        password[sign]=3;
+// 									        for(k=0;k<sign+1;k++)
+// 									            for(r=10;r>0;r=r-0.01)
+// 									               LCD_Draw_Circle(150+step2*k,130,r);
+// 									        flag=1;
+//                           confirm_flag=0;//确认
+//                           // break;		
+//                 } 
+// 								else if(tp_dev.x[t]>start_x&&tp_dev.x[t]<end_x&&tp_dev.y[t]>start_y+step&&tp_dev.y[t]<end_y+step)  //4
+//                 {
+// 									        if(confirm_flag==0) break;//确认
+// 									        // GPIOF->ODR &= ~(1<<0);   //将GPIOF端口的第0位清除为0  
+// 									        password[sign]=4;
+// 									        for(k=0;k<sign+1;k++)
+// 									            for(r=10;r>0;r=r-0.01)
+// 									               LCD_Draw_Circle(150+step2*k,130,r);
+// 									        flag=1;
+//                           confirm_flag=0;//确认
+//                           // break;										
+//                 } 
+// 								else if(tp_dev.x[t]>start_x+step&&tp_dev.x[t]<end_x+step&&tp_dev.y[t]>start_y+step&&tp_dev.y[t]<end_y+step)  //5
+//                 {
+//                           if(confirm_flag==0) break;//确认
+// 									        // GPIOF->ODR &= ~(1<<0);   //将GPIOF端口的第0位清除为0  
+// 									        password[sign]=5;
+// 									        for(k=0;k<sign+1;k++)
+// 									            for(r=10;r>0;r=r-0.01)
+// 									               LCD_Draw_Circle(150+step2*k,130,r);
+// 									        flag=1;
+//                           confirm_flag=0;//确认
+//                           // break;		
+//                 } 
+// 								else if(tp_dev.x[t]>start_x+step*2&&tp_dev.x[t]<end_x+step*2&&tp_dev.y[t]>start_y+step&&tp_dev.y[t]<end_y+step)  //6
+//                 {
+//                           if(confirm_flag==0) break;//确认
+// 									        // GPIOF->ODR &= ~(1<<0);   //将GPIOF端口的第0位清除为0  
+// 									        password[sign]=6;
+// 									        for(k=0;k<sign+1;k++)
+// 									            for(r=10;r>0;r=r-0.01)
+// 									               LCD_Draw_Circle(150+step2*k,130,r);
+// 									        flag=1;
+//                           confirm_flag=0;//确认
+//                           // break;		
+//                 }
+// 								else if(tp_dev.x[t]>start_x&&tp_dev.x[t]<end_x&&tp_dev.y[t]>start_y+step*2&&tp_dev.y[t]<end_y+step*2)  //7
+//                 {
+// 									        if(confirm_flag==0) break;//确认
+// 									        // GPIOF->ODR &= ~(1<<0);   //将GPIOF端口的第0位清除为0  
+// 									        password[sign]=7;
+// 									        for(k=0;k<sign+1;k++)
+// 									            for(r=10;r>0;r=r-0.01)
+// 									               LCD_Draw_Circle(150+step2*k,130,r);
+// 									        flag=1;
+//                           confirm_flag=0;//确认
+//                           // break;										
+//                 } 
+// 								else if(tp_dev.x[t]>start_x+step&&tp_dev.x[t]<end_x+step&&tp_dev.y[t]>start_y*2+step&&tp_dev.y[t]<end_y+step*2)  //8
+//                 {
+//                          if(confirm_flag==0) break;//确认
+// 									        // GPIOF->ODR &= ~(1<<0);   //将GPIOF端口的第0位清除为0  
+// 									        password[sign]=8;
+// 									        for(k=0;k<sign+1;k++)
+// 									            for(r=10;r>0;r=r-0.01)
+// 									               LCD_Draw_Circle(150+step2*k,130,r);
+// 									        flag=1;
+//                           confirm_flag=0;//确认
+//                           // break;									
+//                 } 
+// 								else if(tp_dev.x[t]>start_x+step*2&&tp_dev.x[t]<end_x+step*2&&tp_dev.y[t]>start_y+step*2&&tp_dev.y[t]<end_y+step*2)  //9
+//                 {
+//                           if(confirm_flag==0) break;//确认
+// 									        // GPIOF->ODR &= ~(1<<0);   //将GPIOF端口的第0位清除为0  
+// 									        password[sign]=9;
+// 									        for(k=0;k<sign+1;k++)
+// 									            for(r=10;r>0;r=r-0.01)
+// 									               LCD_Draw_Circle(150+step2*k,130,r);
+// 									        flag=1;
+//                           confirm_flag=0;//确认
+//                           // break;											
+//                 }
+// //								else if(tp_dev.x[t]>start_x&&tp_dev.x[t]<end_x&&tp_dev.y[t]>start_y+step*3&&tp_dev.y[t]<end_y+step*3)  //AC
+// //                {
+// //									        GPIOF->ODR &= ~(1<<0);
+// //									        flag=1;
+// //									        Load_Drow_Dialog();//清除
+// //                          break;									
+// //                } 
+// 								else if(tp_dev.x[t]>start_x+step&&tp_dev.x[t]<end_x+step&&tp_dev.y[t]>start_y*3+step&&tp_dev.y[t]<end_y+step*3)  //0
+//                 {
+//                           if(confirm_flag==0) break;//确认
+// 									        // GPIOF->ODR &= ~(1<<0);   //将GPIOF端口的第0位清除为0  
+// 									        password[sign]=0;
+// 									        for(k=0;k<sign+1;k++)
+// 									            for(r=10;r>0;r=r-0.01)
+// 									               LCD_Draw_Circle(150+step2*k,130,r);
+// 									        flag=1;
+//                           confirm_flag=0;//确认
+//                           // break;		
+//                 } 
+// //								else if(tp_dev.x[t]>start_x+step*2&&tp_dev.x[t]<end_x+step*2&&tp_dev.y[t]>start_y+step*3&&tp_dev.y[t]<end_y+step*3)  //x
+// //                {
+// //                          GPIOF->ODR &= ~(1<<2);
+// //									        flag=1;
+// //                          break;									
+// //                }
+// //								else
+// //								{
+// //													lastpos[t][0] = 0XFFFF;
+// //								}
+// 			// GPIOF->ODR |= 1<<0;
+// 		  // GPIOF->ODR |= 1<<1;
+// 			// GPIOF->ODR |= 1<<2;
+// 			// GPIOF->ODR |= 1<<3;
+// 			// GPIOF->ODR |= 1<<4;
+// 			// GPIOF->ODR |= 1<<5;
+// 			// GPIOF->ODR |= 1<<8;   
+// 			// GPIOF->ODR |= 1<<7;	  
+// 			// GPIOF->ODR |= 1<<6; 			
+//         }
+				
+//         //
+//         delay_ms(5);
+//         //i++;
+
+//     }
+// }
+void ctp_test2()//输入密码
 {   
 	  int step=150;
 	  int start_x=40;
@@ -1564,11 +1766,14 @@ void ctp_test2(u8 sign)//输入密码
     u8 t = 0;
     u8 i = 0;
 	  u8 k=0;
+    int sign=0;
 	  int flag=0;
+    u8 confirm_flag = 0;
     u16 lastpos[5][2];		//???????
 	  u8 r;
 	  POINT_COLOR = BLACK;
-    while(flag==0)
+    // while(flag==0)
+    while(1)
     {
         tp_dev.scan(0);
         for(t = 0; t < 5; t++)
@@ -1584,125 +1789,194 @@ void ctp_test2(u8 sign)//输入密码
                     }
                 }
             }
-						for(i=0;i<8;i++)
-				{
-						GPIOF->MODER &= ~(3<<2*i);
-						GPIOF->MODER |=1<<(2*i);
-						GPIOF->OSPEEDR &= ~(3<<2*i); 
-						GPIOF->OSPEEDR |=2<<(2*i);
-						GPIOF->PUPDR &= ~(3<<2*i);
-						GPIOF->PUPDR |= 1<<(2*i);
-						GPIOF->OTYPER &= ~(1<<i);
-						GPIOF->OTYPER |= 0<<i;
-						GPIOF->ODR |=1<<i;
-				}
+				// 		for(i=0;i<8;i++)
+				// {
+				// 		GPIOF->MODER &= ~(3<<2*i);
+				// 		GPIOF->MODER |=1<<(2*i);
+				// 		GPIOF->OSPEEDR &= ~(3<<2*i); 
+				// 		GPIOF->OSPEEDR |=2<<(2*i);
+				// 		GPIOF->PUPDR &= ~(3<<2*i);
+				// 		GPIOF->PUPDR |= 1<<(2*i);
+				// 		GPIOF->OTYPER &= ~(1<<i);
+				// 		GPIOF->OTYPER |= 0<<i;
+				// 		GPIOF->ODR |=1<<i;
+				// }
+         if((tp_dev.x[t]>start_x && tp_dev.x[t]<end_x && tp_dev.y[t]>start_y+step*3 && tp_dev.y[t]<end_y+step*3)&&(confirm_flag==0)){
+                confirm_flag=1;
+            }
                 if(tp_dev.x[t]>start_x&&tp_dev.x[t]<end_x&&tp_dev.y[t]>start_y&&tp_dev.y[t]<end_y)  //1
                 {
-									        GPIOF->ODR &= ~(1<<0);   //将GPIOF端口的第0位清除为0  
+                          if(confirm_flag==0) continue;//确认
+                          if(sign > 3)
+                              sign = 3;
+									        // GPIOF->ODR &= ~(1<<0);   //将GPIOF端口的第0位清除为0  
 									        password[sign]=1;
 									        for(k=0;k<sign+1;k++)
 									            for(r=10;r>0;r=r-0.01)
 									               LCD_Draw_Circle(150+step2*k,130,r);
+                          sign++;
 									        flag=1;
-                          break;									
+                          confirm_flag=0;//确认
+                          // break;									
                 } 
                 else if(tp_dev.x[t]>start_x+step&&tp_dev.x[t]<end_x+step&&tp_dev.y[t]>start_y&&tp_dev.y[t]<end_y)  //2
                 {
-                          GPIOF->ODR &= ~(1<<1); 
-									        flag=1;
+                          if(confirm_flag==0) continue;//确认
+                          if(sign > 3)
+                              sign = 3;
+									        // GPIOF->ODR &= ~(1<<0);   //将GPIOF端口的第0位清除为0  
 									        password[sign]=2;
-									for(k=0;k<sign+1;k++)
+									        for(k=0;k<sign+1;k++)
 									            for(r=10;r>0;r=r-0.01)
 									               LCD_Draw_Circle(150+step2*k,130,r);
-                          break;	
+                          sign++;
+									        flag=1;
+                          confirm_flag=0;//确认
+                          // break;		
                 } 
 								else if(tp_dev.x[t]>start_x+step*2&&tp_dev.x[t]<end_x+step*2&&tp_dev.y[t]>start_y&&tp_dev.y[t]<end_y)  //3
                 {
-                          GPIOF->ODR &= ~(1<<2); 
-													flag=1;
-													password[sign]=3;
-									for(k=0;k<sign+1;k++)
+                          if(confirm_flag==0) continue;//确认
+                          
+                          if(sign > 3)
+                              sign = 3;
+									        // GPIOF->ODR &= ~(1<<0);   //将GPIOF端口的第0位清除为0  
+									        password[sign]=3;
+									        for(k=0;k<sign+1;k++)
 									            for(r=10;r>0;r=r-0.01)
 									               LCD_Draw_Circle(150+step2*k,130,r);
-                          break;
+                          sign++;
+									        flag=1;
+                          confirm_flag=0;//确认
+                          // break;		
                 } 
 								else if(tp_dev.x[t]>start_x&&tp_dev.x[t]<end_x&&tp_dev.y[t]>start_y+step&&tp_dev.y[t]<end_y+step)  //4
                 {
-									        GPIOF->ODR &= ~(1<<3); 	
-									        flag=1;
+									        if(confirm_flag==0) continue;//确认
+                          
+                          if(sign > 3)
+                              sign = 3;
+									        // GPIOF->ODR &= ~(1<<0);   //将GPIOF端口的第0位清除为0  
 									        password[sign]=4;
-									for(k=0;k<sign+1;k++)
+									        for(k=0;k<sign+1;k++)
 									            for(r=10;r>0;r=r-0.01)
 									               LCD_Draw_Circle(150+step2*k,130,r);
-                          break;									
+                          sign++;
+									        flag=1;
+                          confirm_flag=0;//确认
+                          // break;										
                 } 
 								else if(tp_dev.x[t]>start_x+step&&tp_dev.x[t]<end_x+step&&tp_dev.y[t]>start_y+step&&tp_dev.y[t]<end_y+step)  //5
                 {
-                          GPIOF->ODR &= ~(1<<4); 
-													flag=1;
+                          if(confirm_flag==0) continue;//确认
+                         
+                          if(sign > 3)
+                              sign = 3;
+									        // GPIOF->ODR &= ~(1<<0);   //将GPIOF端口的第0位清除为0  
 									        password[sign]=5;
-									for(k=0;k<sign+1;k++)
+									        for(k=0;k<sign+1;k++)
 									            for(r=10;r>0;r=r-0.01)
 									               LCD_Draw_Circle(150+step2*k,130,r);
-                          break;
+                          sign++;
+									        flag=1;
+                          confirm_flag=0;//确认
+                          // break;		
                 } 
 								else if(tp_dev.x[t]>start_x+step*2&&tp_dev.x[t]<end_x+step*2&&tp_dev.y[t]>start_y+step&&tp_dev.y[t]<end_y+step)  //6
                 {
-                          GPIOF->ODR &= ~(1<<5); 
-													flag=1;
+                          if(confirm_flag==0) continue;//确认
+                          
+                          if(sign > 3)
+                              sign =3;
+									        // GPIOF->ODR &= ~(1<<0);   //将GPIOF端口的第0位清除为0  
 									        password[sign]=6;
-									for(k=0;k<sign+1;k++)
+									        for(k=0;k<sign+1;k++)
 									            for(r=10;r>0;r=r-0.01)
 									               LCD_Draw_Circle(150+step2*k,130,r);
-                          break;
+                          sign++;
+									        flag=1;
+                          confirm_flag=0;//确认
+                          // break;		
                 }
 								else if(tp_dev.x[t]>start_x&&tp_dev.x[t]<end_x&&tp_dev.y[t]>start_y+step*2&&tp_dev.y[t]<end_y+step*2)  //7
                 {
-									        GPIOF->ODR &= ~(1<<6); 	
-									        flag=1;
+									        if(confirm_flag==0) continue;//确认
+                         
+                          if(sign > 3)
+                              sign =3;
+									        // GPIOF->ODR &= ~(1<<0);   //将GPIOF端口的第0位清除为0  
 									        password[sign]=7;
-									for(k=0;k<sign+1;k++)
+									        for(k=0;k<sign+1;k++)
 									            for(r=10;r>0;r=r-0.01)
 									               LCD_Draw_Circle(150+step2*k,130,r);
-                          break;									
+                          sign++;
+									        flag=1;
+                          confirm_flag=0;//确认
+                          // break;										
                 } 
 								else if(tp_dev.x[t]>start_x+step&&tp_dev.x[t]<end_x+step&&tp_dev.y[t]>start_y*2+step&&tp_dev.y[t]<end_y+step*2)  //8
                 {
-                          GPIOF->ODR &= ~(1<<7);
-//									        LED8_REVERSE;
-									        flag=1;
+                         if(confirm_flag==0) continue;//确认
+                          
+                          if(sign > 3)
+                              sign = 3;
+									        // GPIOF->ODR &= ~(1<<0);   //将GPIOF端口的第0位清除为0  
 									        password[sign]=8;
-									for(k=0;k<sign+1;k++)
+									        for(k=0;k<sign+1;k++)
 									            for(r=10;r>0;r=r-0.01)
 									               LCD_Draw_Circle(150+step2*k,130,r);
-                          break;									
+                          sign++;
+									        flag=1;
+                          confirm_flag=0;//确认
+                          // break;									
                 } 
 								else if(tp_dev.x[t]>start_x+step*2&&tp_dev.x[t]<end_x+step*2&&tp_dev.y[t]>start_y+step*2&&tp_dev.y[t]<end_y+step*2)  //9
                 {
-                          GPIOF->ODR &= ~(1<<8);
-									        flag=1;
+                          if(confirm_flag==0) continue;//确认
+                          
+                          if(sign > 3)
+                              sign = 3;
+									        // GPIOF->ODR &= ~(1<<0);   //将GPIOF端口的第0位清除为0  
 									        password[sign]=9;
-									for(k=0;k<sign+1;k++)
+									        for(k=0;k<sign+1;k++)
 									            for(r=10;r>0;r=r-0.01)
 									               LCD_Draw_Circle(150+step2*k,130,r);
-                          break;									
+                          sign++;
+									        flag=1;
+                          confirm_flag=0;//确认
+                          // break;											
                 }
-//								else if(tp_dev.x[t]>start_x&&tp_dev.x[t]<end_x&&tp_dev.y[t]>start_y+step*3&&tp_dev.y[t]<end_y+step*3)  //AC
-//                {
-//									        GPIOF->ODR &= ~(1<<0);
-//									        flag=1;
-//									        Load_Drow_Dialog();//清除
-//                          break;									
-//                } 
+								else if(tp_dev.x[t]>start_x+step*2&&tp_dev.x[t]<end_x+step*2&&tp_dev.y[t]>start_y+step*3&&tp_dev.y[t]<end_y+step*3)  //删除
+               {
+                         Password[sign] = 0;
+                         sign--;
+                         if(sign<0){
+                          sign=0;
+                         }
+                         LCD_Fill(130,90,340,160,WHITE);
+                         for(i=0;i<4*step2;i=i+step2)
+                          LCD_Draw_Circle(90+60+i,230-100,10);
+                          for(k=0;k<sign;k++)
+									            for(r=10;r>0;r=r-0.01)
+									               LCD_Draw_Circle(150+step2*k,130,r);
+                         delay_ms(50);
+
+               } 
 								else if(tp_dev.x[t]>start_x+step&&tp_dev.x[t]<end_x+step&&tp_dev.y[t]>start_y*3+step&&tp_dev.y[t]<end_y+step*3)  //0
                 {
-                          GPIOF->ODR &= ~(1<<1);
-									        flag=1;
+                          if(confirm_flag==0) continue;//确认
+                         
+                          if(sign > 3)
+                              sign = 3;
+									        // GPIOF->ODR &= ~(1<<0);   //将GPIOF端口的第0位清除为0  
 									        password[sign]=0;
-									for(k=0;k<sign+1;k++)
+									        for(k=0;k<sign+1;k++)
 									            for(r=10;r>0;r=r-0.01)
 									               LCD_Draw_Circle(150+step2*k,130,r);
-                          break;									
+                          sign++;       
+									        flag=1;
+                          confirm_flag=0;//确认
+                          // break;		
                 } 
 //								else if(tp_dev.x[t]>start_x+step*2&&tp_dev.x[t]<end_x+step*2&&tp_dev.y[t]>start_y+step*3&&tp_dev.y[t]<end_y+step*3)  //x
 //                {
@@ -1714,22 +1988,24 @@ void ctp_test2(u8 sign)//输入密码
 //								{
 //													lastpos[t][0] = 0XFFFF;
 //								}
-			GPIOF->ODR |= 1<<0;
-		  GPIOF->ODR |= 1<<1;
-			GPIOF->ODR |= 1<<2;
-			GPIOF->ODR |= 1<<3;
-			GPIOF->ODR |= 1<<4;
-			GPIOF->ODR |= 1<<5;
-			GPIOF->ODR |= 1<<8;   
-			GPIOF->ODR |= 1<<7;	  
-			GPIOF->ODR |= 1<<6; 			
+			// GPIOF->ODR |= 1<<0;
+		  // GPIOF->ODR |= 1<<1;
+			// GPIOF->ODR |= 1<<2;
+			// GPIOF->ODR |= 1<<3;
+			// GPIOF->ODR |= 1<<4;
+			// GPIOF->ODR |= 1<<5;
+			// GPIOF->ODR |= 1<<8;   
+			// GPIOF->ODR |= 1<<7;	  
+			// GPIOF->ODR |= 1<<6; 			
         }
 				
         //
         delay_ms(5);
         //i++;
-
+      if(sign == 4)
+      break;
     }
+    
 }
 void gui_draw_hline(u16 x0, u16 y0, u16 len, u16 color)
 {
@@ -1771,8 +2047,8 @@ void close()    //锁屏界面的设计
 	  for(i=0;i<3*step;i=i+step)
 	     for(j=0;j<4*step;j=j+step)
 	{
-		     if((i==0&&j==3*step)||(i==2*step&&j==3*step))
-					 continue;
+		    //  if((i==0&&j==3*step)||(i==2*step&&j==3*step))
+				// 	 continue;
          LCD_Draw_Circle(star_x+i,star_y+j,50);
 	}
 	  for(i=0;i<4*step2;i=i+step2)
@@ -1785,9 +2061,14 @@ void close()    //锁屏界面的设计
 				 LCD_ShowNum(star_x-4+j, star_y-10+i,k,1,24);
 	       k=k+1;
 				}
-	 // LCD_ShowString(star_x-10, star_y-10+step*3, 200, 24,24, "AC");
+	  // LCD_ShowString(star_x-10, star_y-10+step*3, 200, 24,24, "AC");
 	  LCD_ShowString(star_x-4+step, star_y-10+step*3, 200, 24,24, "0");
-	//  LCD_ShowString(star_x-4+step*2, star_y-10+step*3, 200, 24,24, "X");
+	  //  LCD_ShowString(star_x-4+step*2, star_y-10+step*3, 200, 24,24, "X");
+    // LCD_ShowString(star_x-10, star_y-10+step*3, 200, 24,24, " 确认");
+    LCD_Showcn(star_x-10, star_y-10+step*3,"确认",BLACK, WHITE);
+    LCD_Showcn(star_x-4+step*2, star_y-10+step*3,"删除",BLACK, WHITE);
+    // LCD_ShowString(star_x-4+step*2, star_y-10+step*3, 200, 24,24, "删除");
+    
 	  POINT_COLOR = BLUE; 
 	  LCD_Showcn(star_x+90,star_y-160,"请输入锁屏密码！",BLACK, WHITE);
 }
@@ -1799,12 +2080,13 @@ int In()
       int i=0,j=0;
       k=0;
       close();			
-			for(i=0;i<4;i++)
-          {
-						delay_ms(1000);
-						ctp_test2(i); 	//进入四次，输入四位数密码			
-						//
-					}
+			// for(i=0;i<4;i++)
+      //     {
+			// 			delay_ms(1000);
+			// 			ctp_test2(i); 	//进入四次，输入四位数密码			
+			// 			//
+			// 		}
+      ctp_test2();
 			delay_ms(200);
 			for(j=0;j<4;j++)
 			 { 
