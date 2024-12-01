@@ -1,0 +1,20 @@
+{
+    "files.associations": {
+        "CH455I2C.C": "cpp",
+        "timer.h": "c",
+        "111.h": "c",
+        "back.h": "c",
+        "shang.h": "c",
+        "xia.h": "c",
+        "motor.h": "c",
+        "laba.h": "c",
+        "phone.h": "c",
+        "a.h": "c",
+        "gps1.h": "c",
+        "touch.h": "c",
+        "light.h": "c",
+        "2015.h": "c",
+        "listen.h": "c",
+        "girl1.h": "c"
+    }
+}
