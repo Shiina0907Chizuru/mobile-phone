@@ -1,7 +1,7 @@
 #ifndef _KEY_H_
 #define _KEY_H_
 
-/*KEYÒý½Å¶¨Òå
+/*KEYï¿½ï¿½ï¿½Å¶ï¿½ï¿½ï¿½
 //KEY_S1      PF8
 //KEY_S2      PF9
 //KEY_S3      PF10
@@ -12,4 +12,5 @@
 
 void KEYGpio_Init(void);
 unsigned char KeyScan(void);
+unsigned char my_key(void);
 #endif

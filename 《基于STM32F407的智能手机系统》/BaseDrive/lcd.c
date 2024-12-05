@@ -39,8 +39,8 @@
 //LCD的画笔颜色和背景色
 u16 POINT_COLOR = 0x0000;	                                            // 画笔颜色
 u16 BACK_COLOR  = 0xFFFF;                                               // 背景色
-int password[4]={0};//输入的密码
-int Password[4]={8,8,8,8};//预设置的密码
+int password_smart[4]={0};//输入的密码
+int Password_smart[4]={8,8,8,8};//预设置的密码
 int voice = 15;//音量
 u8 photo_flag = 0;
 u8 exit_flag = 0;
@@ -1047,9 +1047,13 @@ void LCD_DrawLine(u16 x1, u16 y1, u16 x2, u16 y2)
     }
 }
 
-//画矩形
-//(x1,y1),(x2,y2):矩形的对角坐标
-void LCD_DrawRectangle(u16 x1, u16 y1, u16 x2, u16 y2)
+/**********************************************************************************************************
+函数名称：画矩形
+输入参数：(x1,y1),(x2,y2):矩形的对角坐标
+输出参数：无
+函数返回：无
+**********************************************************************************************************/
+void LCD_DrawRectangle(u16 x1, u16 y1, u16 x2, u16 y2, u16 color)
 {
     LCD_DrawLine(x1, y1, x2, y1);
     LCD_DrawLine(x1, y1, x1, y2);
@@ -1249,7 +1253,7 @@ void LCD_ShowxNum(u16 x, u16 y, u32 num, u8 len, u8 size, u8 mode)
 //width,height:区域大小
 //size:字体大小
 //*p:字符串起始地址
-void LCD_ShowString(u16 x, u16 y, u16 width, u16 height, u8 size, u8 *p)
+void LCD_ShowStringMy(u16 x, u16 y, u16 width, u16 height, u8 size, u8 *p)
 {
     u8 x0 = x;
 
@@ -1272,6 +1276,33 @@ void LCD_ShowString(u16 x, u16 y, u16 width, u16 height, u8 size, u8 *p)
         x += size / 2;
         p++;
     }
+}
+/**********************************************************************************************************
+函数名称：显示字符串
+输入参数：x,y			起点坐标
+		  u8 *pcStr		字符
+		  PenColor  	字符颜色
+		  BackColor 	背景颜色
+输出参数：无
+函数返回：无
+**********************************************************************************************************/
+void LCD_ShowString(u16 x0, u16 y0, u8 *pcStr, u16 PenColor, u16 BackColor)
+{
+    while(*pcStr)
+	{
+		if(*pcStr > 0xa1)                                               //  显示汉字
+		{
+			LCD_ShowHzString(x0, y0, pcStr, PenColor, BackColor);
+			pcStr += 2;
+			x0 += 16;
+		}
+		else                                                            //  显示字符
+		{
+			LCD_ShowCharString(x0, y0, pcStr, PenColor, BackColor);	
+			pcStr +=1;
+			x0+= 8;
+		}
+	}	
 }
 void LCD_ShowHzString(u16 x, u16 y, u8 *c,u16 PenColor, u16 BackColor)
 {
@@ -1605,7 +1636,7 @@ void Exit(void)
 //                 {
 //                           if(confirm_flag==0) break;//确认
 // 									        // GPIOF->ODR &= ~(1<<0);   //将GPIOF端口的第0位清除为0  
-// 									        password[sign]=1;
+// 									        password_smart[sign]=1;
 // 									        for(k=0;k<sign+1;k++)
 // 									            for(r=10;r>0;r=r-0.01)
 // 									               LCD_Draw_Circle(150+step2*k,130,r);
@@ -1617,7 +1648,7 @@ void Exit(void)
 //                 {
 //                           if(confirm_flag==0) break;//确认
 // 									        // GPIOF->ODR &= ~(1<<0);   //将GPIOF端口的第0位清除为0  
-// 									        password[sign]=2;
+// 									        password_smart[sign]=2;
 // 									        for(k=0;k<sign+1;k++)
 // 									            for(r=10;r>0;r=r-0.01)
 // 									               LCD_Draw_Circle(150+step2*k,130,r);
@@ -1629,7 +1660,7 @@ void Exit(void)
 //                 {
 //                           if(confirm_flag==0) break;//确认
 // 									        // GPIOF->ODR &= ~(1<<0);   //将GPIOF端口的第0位清除为0  
-// 									        password[sign]=3;
+// 									        password_smart[sign]=3;
 // 									        for(k=0;k<sign+1;k++)
 // 									            for(r=10;r>0;r=r-0.01)
 // 									               LCD_Draw_Circle(150+step2*k,130,r);
@@ -1641,7 +1672,7 @@ void Exit(void)
 //                 {
 // 									        if(confirm_flag==0) break;//确认
 // 									        // GPIOF->ODR &= ~(1<<0);   //将GPIOF端口的第0位清除为0  
-// 									        password[sign]=4;
+// 									        password_smart[sign]=4;
 // 									        for(k=0;k<sign+1;k++)
 // 									            for(r=10;r>0;r=r-0.01)
 // 									               LCD_Draw_Circle(150+step2*k,130,r);
@@ -1653,7 +1684,7 @@ void Exit(void)
 //                 {
 //                           if(confirm_flag==0) break;//确认
 // 									        // GPIOF->ODR &= ~(1<<0);   //将GPIOF端口的第0位清除为0  
-// 									        password[sign]=5;
+// 									        password_smart[sign]=5;
 // 									        for(k=0;k<sign+1;k++)
 // 									            for(r=10;r>0;r=r-0.01)
 // 									               LCD_Draw_Circle(150+step2*k,130,r);
@@ -1665,7 +1696,7 @@ void Exit(void)
 //                 {
 //                           if(confirm_flag==0) break;//确认
 // 									        // GPIOF->ODR &= ~(1<<0);   //将GPIOF端口的第0位清除为0  
-// 									        password[sign]=6;
+// 									        password_smart[sign]=6;
 // 									        for(k=0;k<sign+1;k++)
 // 									            for(r=10;r>0;r=r-0.01)
 // 									               LCD_Draw_Circle(150+step2*k,130,r);
@@ -1677,7 +1708,7 @@ void Exit(void)
 //                 {
 // 									        if(confirm_flag==0) break;//确认
 // 									        // GPIOF->ODR &= ~(1<<0);   //将GPIOF端口的第0位清除为0  
-// 									        password[sign]=7;
+// 									        password_smart[sign]=7;
 // 									        for(k=0;k<sign+1;k++)
 // 									            for(r=10;r>0;r=r-0.01)
 // 									               LCD_Draw_Circle(150+step2*k,130,r);
@@ -1689,7 +1720,7 @@ void Exit(void)
 //                 {
 //                          if(confirm_flag==0) break;//确认
 // 									        // GPIOF->ODR &= ~(1<<0);   //将GPIOF端口的第0位清除为0  
-// 									        password[sign]=8;
+// 									        password_smart[sign]=8;
 // 									        for(k=0;k<sign+1;k++)
 // 									            for(r=10;r>0;r=r-0.01)
 // 									               LCD_Draw_Circle(150+step2*k,130,r);
@@ -1701,7 +1732,7 @@ void Exit(void)
 //                 {
 //                           if(confirm_flag==0) break;//确认
 // 									        // GPIOF->ODR &= ~(1<<0);   //将GPIOF端口的第0位清除为0  
-// 									        password[sign]=9;
+// 									        password_smart[sign]=9;
 // 									        for(k=0;k<sign+1;k++)
 // 									            for(r=10;r>0;r=r-0.01)
 // 									               LCD_Draw_Circle(150+step2*k,130,r);
@@ -1720,7 +1751,7 @@ void Exit(void)
 //                 {
 //                           if(confirm_flag==0) break;//确认
 // 									        // GPIOF->ODR &= ~(1<<0);   //将GPIOF端口的第0位清除为0  
-// 									        password[sign]=0;
+// 									        password_smart[sign]=0;
 // 									        for(k=0;k<sign+1;k++)
 // 									            for(r=10;r>0;r=r-0.01)
 // 									               LCD_Draw_Circle(150+step2*k,130,r);
@@ -1810,7 +1841,7 @@ void ctp_test2()//输入密码
                           if(sign > 3)
                               sign = 3;
 									        // GPIOF->ODR &= ~(1<<0);   //将GPIOF端口的第0位清除为0  
-									        password[sign]=1;
+									        password_smart[sign]=1;
 									        for(k=0;k<sign+1;k++)
 									            for(r=10;r>0;r=r-0.01)
 									               LCD_Draw_Circle(150+step2*k,130,r);
@@ -1825,7 +1856,7 @@ void ctp_test2()//输入密码
                           if(sign > 3)
                               sign = 3;
 									        // GPIOF->ODR &= ~(1<<0);   //将GPIOF端口的第0位清除为0  
-									        password[sign]=2;
+									        password_smart[sign]=2;
 									        for(k=0;k<sign+1;k++)
 									            for(r=10;r>0;r=r-0.01)
 									               LCD_Draw_Circle(150+step2*k,130,r);
@@ -1841,7 +1872,7 @@ void ctp_test2()//输入密码
                           if(sign > 3)
                               sign = 3;
 									        // GPIOF->ODR &= ~(1<<0);   //将GPIOF端口的第0位清除为0  
-									        password[sign]=3;
+									        password_smart[sign]=3;
 									        for(k=0;k<sign+1;k++)
 									            for(r=10;r>0;r=r-0.01)
 									               LCD_Draw_Circle(150+step2*k,130,r);
@@ -1857,7 +1888,7 @@ void ctp_test2()//输入密码
                           if(sign > 3)
                               sign = 3;
 									        // GPIOF->ODR &= ~(1<<0);   //将GPIOF端口的第0位清除为0  
-									        password[sign]=4;
+									        password_smart[sign]=4;
 									        for(k=0;k<sign+1;k++)
 									            for(r=10;r>0;r=r-0.01)
 									               LCD_Draw_Circle(150+step2*k,130,r);
@@ -1873,7 +1904,7 @@ void ctp_test2()//输入密码
                           if(sign > 3)
                               sign = 3;
 									        // GPIOF->ODR &= ~(1<<0);   //将GPIOF端口的第0位清除为0  
-									        password[sign]=5;
+									        password_smart[sign]=5;
 									        for(k=0;k<sign+1;k++)
 									            for(r=10;r>0;r=r-0.01)
 									               LCD_Draw_Circle(150+step2*k,130,r);
@@ -1889,7 +1920,7 @@ void ctp_test2()//输入密码
                           if(sign > 3)
                               sign =3;
 									        // GPIOF->ODR &= ~(1<<0);   //将GPIOF端口的第0位清除为0  
-									        password[sign]=6;
+									        password_smart[sign]=6;
 									        for(k=0;k<sign+1;k++)
 									            for(r=10;r>0;r=r-0.01)
 									               LCD_Draw_Circle(150+step2*k,130,r);
@@ -1905,7 +1936,7 @@ void ctp_test2()//输入密码
                           if(sign > 3)
                               sign =3;
 									        // GPIOF->ODR &= ~(1<<0);   //将GPIOF端口的第0位清除为0  
-									        password[sign]=7;
+									        password_smart[sign]=7;
 									        for(k=0;k<sign+1;k++)
 									            for(r=10;r>0;r=r-0.01)
 									               LCD_Draw_Circle(150+step2*k,130,r);
@@ -1921,7 +1952,7 @@ void ctp_test2()//输入密码
                           if(sign > 3)
                               sign = 3;
 									        // GPIOF->ODR &= ~(1<<0);   //将GPIOF端口的第0位清除为0  
-									        password[sign]=8;
+									        password_smart[sign]=8;
 									        for(k=0;k<sign+1;k++)
 									            for(r=10;r>0;r=r-0.01)
 									               LCD_Draw_Circle(150+step2*k,130,r);
@@ -1937,7 +1968,7 @@ void ctp_test2()//输入密码
                           if(sign > 3)
                               sign = 3;
 									        // GPIOF->ODR &= ~(1<<0);   //将GPIOF端口的第0位清除为0  
-									        password[sign]=9;
+									        password_smart[sign]=9;
 									        for(k=0;k<sign+1;k++)
 									            for(r=10;r>0;r=r-0.01)
 									               LCD_Draw_Circle(150+step2*k,130,r);
@@ -1948,7 +1979,7 @@ void ctp_test2()//输入密码
                 }
 								else if(tp_dev.x[t]>start_x+step*2&&tp_dev.x[t]<end_x+step*2&&tp_dev.y[t]>start_y+step*3&&tp_dev.y[t]<end_y+step*3)  //删除
                {
-                         Password[sign] = 0;
+                         Password_smart[sign] = 0;
                          sign--;
                          if(sign<0){
                           sign=0;
@@ -1969,7 +2000,7 @@ void ctp_test2()//输入密码
                           if(sign > 3)
                               sign = 3;
 									        // GPIOF->ODR &= ~(1<<0);   //将GPIOF端口的第0位清除为0  
-									        password[sign]=0;
+									        password_smart[sign]=0;
 									        for(k=0;k<sign+1;k++)
 									            for(r=10;r>0;r=r-0.01)
 									               LCD_Draw_Circle(150+step2*k,130,r);
@@ -2061,13 +2092,13 @@ void close()    //锁屏界面的设计
 				 LCD_ShowNum(star_x-4+j, star_y-10+i,k,1,24);
 	       k=k+1;
 				}
-	  // LCD_ShowString(star_x-10, star_y-10+step*3, 200, 24,24, "AC");
-	  LCD_ShowString(star_x-4+step, star_y-10+step*3, 200, 24,24, "0");
-	  //  LCD_ShowString(star_x-4+step*2, star_y-10+step*3, 200, 24,24, "X");
-    // LCD_ShowString(star_x-10, star_y-10+step*3, 200, 24,24, " 确认");
+	  // LCD_ShowStringMy(star_x-10, star_y-10+step*3, 200, 24,24, "AC");
+	  LCD_ShowStringMy(star_x-4+step, star_y-10+step*3, 200, 24,24, "0");
+	  //  LCD_ShowStringMy(star_x-4+step*2, star_y-10+step*3, 200, 24,24, "X");
+    // LCD_ShowStringMy(star_x-10, star_y-10+step*3, 200, 24,24, " 确认");
     LCD_Showcn(star_x-10, star_y-10+step*3,"确认",BLACK, WHITE);
     LCD_Showcn(star_x-4+step*2, star_y-10+step*3,"删除",BLACK, WHITE);
-    // LCD_ShowString(star_x-4+step*2, star_y-10+step*3, 200, 24,24, "删除");
+    // LCD_ShowStringMy(star_x-4+step*2, star_y-10+step*3, 200, 24,24, "删除");
     
 	  POINT_COLOR = BLUE; 
 	  LCD_Showcn(star_x+90,star_y-160,"请输入锁屏密码！",BLACK, WHITE);
@@ -2090,7 +2121,7 @@ int In()
 			delay_ms(200);
 			for(j=0;j<4;j++)
 			 { 
-				 if(password[j]!= Password[j])
+				 if(password_smart[j]!= Password_smart[j])
 				 {  
 					 k=1;
            break;
@@ -2100,7 +2131,7 @@ int In()
 			 {   
 				  BEEP2();
 				  LCD_Clear(WHITE);
-				  LCD_ShowString(0,300,450,24,24,"Incorrect password, please re-enter");
+				  LCD_ShowStringMy(0,300,450,24,24,"Incorrect password_smart, please re-enter");
 				  delay_ms(1000);
 				  LCD_Clear(WHITE);
           return 0;
@@ -2110,7 +2141,7 @@ int In()
 				  BEEP1();
 			    LCD_Clear(WHITE);
 //			  LCD_Showcn(200,300,"欢迎进入!",BLACK, WHITE);
-				  LCD_ShowString(200,300,200,24,24,"WELCOME");
+				  LCD_ShowStringMy(200,300,200,24,24,"WELCOME");
 				  delay_ms(1000);
 				  LCD_Clear(WHITE);
 				return 1;
@@ -2121,28 +2152,28 @@ void menuset()
 {
 
 	      LCD_DrawPicture(60, 20, 210, 170, (u8*)gImage_photo);	  			
-        LCD_ShowString(110,180,200,24,24,"Photo");
+        LCD_ShowStringMy(110,180,200,24,24,"Photo");
 	
         LCD_DrawPicture(250, 20, 400, 170, (u8*)gImage_timer);	  		
-	      LCD_ShowString(310,180,200,24,24,"Time");
+	      LCD_ShowStringMy(310,180,200,24,24,"Time");
 	
 	      LCD_DrawPicture(60, 210, 210, 360, (u8*)gImage_gps1);	  		
-	      LCD_ShowString(120,370,200,24,24,"GPS");
+	      LCD_ShowStringMy(120,370,200,24,24,"GPS");
 	
 				LCD_DrawPicture(250, 210, 400, 360, (u8*)gImage_phone);	  		
-	      LCD_ShowString(310,370,200,24,24,"Phone");
+	      LCD_ShowStringMy(310,370,200,24,24,"Phone");
 				
 				LCD_DrawPicture(60, 400, 210, 550, (u8*)gImage_a);	  		
-	      LCD_ShowString(110,560,200,24,24,"TandW");
+	      LCD_ShowStringMy(110,560,200,24,24,"TandW");
 	
 				LCD_DrawPicture(250, 400, 400, 550, (u8*)gImage_laba);	  		
-	      LCD_ShowString(310,560,200,24,24,"MP3");
+	      LCD_ShowStringMy(310,560,200,24,24,"MP3");
 				
 				LCD_DrawPicture(60, 590, 210, 740, (u8*)gImage_light);	  		
-	      LCD_ShowString(110,750,200,24,24,"Light");
+	      LCD_ShowStringMy(110,750,200,24,24,"Light");
 	
 				LCD_DrawPicture(250, 590, 400, 740, (u8*)gImage_motor);	  		
-	      LCD_ShowString(310,750,200,24,24,"Motor");
+	      LCD_ShowStringMy(310,750,200,24,24,"Motor");
 	
 	
 }
@@ -2232,8 +2263,8 @@ void photo()
 								LCD_DrawPicture(80, 200, 400, 440, (u8*)gImage_girl1);	
 							  LCD_DrawPicture(90, 600, 190, 700, (u8*)gImage_shang);
                 LCD_DrawPicture(300, 600, 400, 700, (u8*)gImage_xia);
-	              LCD_ShowString(120,720,450,24,24,"S1");
-	              LCD_ShowString(340,720,450,24,24,"S2");
+	              LCD_ShowStringMy(120,720,450,24,24,"S1");
+	              LCD_ShowStringMy(340,720,450,24,24,"S2");
 								while(1)
 								{
 								tempKEY = KeyScan();
@@ -2410,32 +2441,32 @@ void Gps()
 				GNGGA_info(&RxDataOutPtr[2]);
 				sprintf(dispbuf, "%s", gps_time);
 				//LCD_ShowString2(150, 200, (u8*)dispbuf,BLACK, WHITE);
-				LCD_ShowString(80,300,200, 24,24,"Time:");
-				LCD_ShowString(300,300,200, 24,24,(u8*)dispbuf);	
+				LCD_ShowStringMy(80,300,200, 24,24,"Time:");
+				LCD_ShowStringMy(300,300,200, 24,24,(u8*)dispbuf);	
 				sprintf(dispbuf, "%6.2f%c", longitude,longitude_dir);
 //				LCD_ShowString2(150, 220, (u8*)dispbuf,BLACK, WHITE);
-				LCD_ShowString(80,350,200, 24,24,"Longitude:");
-				LCD_ShowString(300,350,200, 24,24,(u8*)dispbuf);
+				LCD_ShowStringMy(80,350,200, 24,24,"Longitude:");
+				LCD_ShowStringMy(300,350,200, 24,24,(u8*)dispbuf);
 				sprintf(dispbuf, "%6.2f%c", latitude,latitude_dir);
 //				LCD_ShowString2(150, 240, (u8*)dispbuf,BLACK, WHITE);
-				LCD_ShowString(80,400,200, 24,24,"Latitude:");
-				LCD_ShowString(300,400,200, 24,24,(u8*)dispbuf);
+				LCD_ShowStringMy(80,400,200, 24,24,"Latitude:");
+				LCD_ShowStringMy(300,400,200, 24,24,(u8*)dispbuf);
 			}
 			else if (memcmp(&RxDataOutPtr[2], "$GPGSV", 6) == 0)
 			{
 				GSV_info(&RxDataOutPtr[2]);
 				sprintf(dispbuf, "   %d\r\n ",gpgsv.numSv);
 				//LCD_ShowString2(150, 300, (u8*)dispbuf,BLACK, WHITE);
-				LCD_ShowString(80,450,200, 24,24,"GPS:");
-				LCD_ShowString(300,450,200, 24,24,(u8*)dispbuf);
+				LCD_ShowStringMy(80,450,200, 24,24,"GPS:");
+				LCD_ShowStringMy(300,450,200, 24,24,(u8*)dispbuf);
 			}
 			else if (memcmp(&RxDataOutPtr[2], "$BDGSV", 6) == 0)
 			{
 				GSV_info(&RxDataOutPtr[2]);
 				sprintf(dispbuf, "   %d ",gpgsv.numSv);
 				//LCD_ShowString2(150, 320, (u8*)dispbuf,BLACK, WHITE);
-				LCD_ShowString(80,500,200, 24,24,"Beidou:");
-				LCD_ShowString(300,500,200, 24,24,(u8*)dispbuf);
+				LCD_ShowStringMy(80,500,200, 24,24,"Beidou:");
+				LCD_ShowStringMy(300,500,200, 24,24,(u8*)dispbuf);
 			}
 			RxDataOutPtr += RBUFF_UNIT;                       //指针下移
 			if(RxDataOutPtr == RxDataEndPtr)                  //如果指针到缓冲区尾部了
@@ -2472,16 +2503,16 @@ void music()
 	setMp3Vol(voice);
 	init_CH455();
   CH455_Write( CH455_SYSON ); 
-	LCD_ShowString(50, 500, 400,24,24,"Press K1  to start    playing");
-	LCD_ShowString(50, 530, 400,24,24,"Press K2  to stop     playing");
-	LCD_ShowString(50, 560, 400,24,24,"Press K3  to start    next   ");
-	LCD_ShowString(50, 590, 400,24,24,"Press K4  to start    last   ");
-	LCD_ShowString(50, 620, 400,24,24,"Press K5  to increase volume ");
-	LCD_ShowString(50, 650, 400,24,24,"Press K6  to decrease volume ");
-	LCD_ShowString(50, 680, 400,24,24,"Press K7  to start    looping");
-	LCD_ShowString(50, 710, 400,24,24,"Press K8  to stop     looping");
-	LCD_ShowString(50, 740, 400,24,24,"Press K16 to exit     mp3    ");
-	LCD_ShowString(0, 470, 470,24,24,"Real time volume on the right screen");
+	LCD_ShowStringMy(50, 500, 400,24,24,"Press K1  to start    playing");
+	LCD_ShowStringMy(50, 530, 400,24,24,"Press K2  to stop     playing");
+	LCD_ShowStringMy(50, 560, 400,24,24,"Press K3  to start    next   ");
+	LCD_ShowStringMy(50, 590, 400,24,24,"Press K4  to start    last   ");
+	LCD_ShowStringMy(50, 620, 400,24,24,"Press K5  to increase volume ");
+	LCD_ShowStringMy(50, 650, 400,24,24,"Press K6  to decrease volume ");
+	LCD_ShowStringMy(50, 680, 400,24,24,"Press K7  to start    looping");
+	LCD_ShowStringMy(50, 710, 400,24,24,"Press K8  to stop     looping");
+	LCD_ShowStringMy(50, 740, 400,24,24,"Press K16 to exit     mp3    ");
+	LCD_ShowStringMy(0, 470, 470,24,24,"Real time volume on the right screen");
 	showL[0] = BCD_decode_tab[voice%10];
 	showH[0] = BCD_decode_tab[voice/10];
 	showL[1] = BCD_decode_tab[0];
@@ -2512,7 +2543,7 @@ while(1)
 //以下是对应数字键值1-16
         if( i==1 )
         {
-				LCD_ShowString(200, 50, 200,24,24,"Play ");
+				LCD_ShowStringMy(200, 50, 200,24,24,"Play ");
 			
 					if(flag==0)
 					{ 
@@ -2526,7 +2557,7 @@ while(1)
 				else if(i==2)
         {
 				mp3Stop();              //  停止
-        LCD_ShowString(200, 50, 200,24,24,"Stop ");
+        LCD_ShowStringMy(200, 50, 200,24,24,"Stop ");
         }
 				else if(i==3)
         {
@@ -2534,14 +2565,14 @@ while(1)
 				number++;
 				if(number>=4)
 						 number=1;
-        LCD_ShowString(200,150, 200,24,24,"Next ");
+        LCD_ShowStringMy(200,150, 200,24,24,"Next ");
 				showH[1] = BCD_decode_tab[0];
 		    showL[1] = BCD_decode_tab[number]; 	
         }
 				else if(i==4)
         {
 				mp3last();              //  上一曲
-        LCD_ShowString(200, 150, 200,24,24,"Last ");
+        LCD_ShowStringMy(200, 150, 200,24,24,"Last ");
 				number--;
 					if(number<=0)
 						number=3;
@@ -2554,7 +2585,7 @@ while(1)
 				voice++;
 				if(voice>30)
 						voice=30;
-        LCD_ShowString(200, 250, 200,24,24,"Loud ");
+        LCD_ShowStringMy(200, 250, 200,24,24,"Loud ");
 				showH[0] = BCD_decode_tab[voice/10];
 		    showL[0] = BCD_decode_tab[voice%10]; 
         }
@@ -2564,24 +2595,24 @@ while(1)
 				voice--;	
 					if(voice<0)
 						 voice=0;
-        LCD_ShowString(200, 250, 200,24,24,"Small");
+        LCD_ShowStringMy(200, 250, 200,24,24,"Small");
 				showH[0] = BCD_decode_tab[voice/10];
 		    showL[0] = BCD_decode_tab[voice%10]; 
         }
 				else if(i==7)
         {
 				mp3loopplay();              //循环播放开始
-        LCD_ShowString(200,350, 200,24,24,"LoopStart");
+        LCD_ShowStringMy(200,350, 200,24,24,"LoopStart");
         }
 				else if(i==8)
         {
 				mp3loopstop();              // 循环播放结束
-        LCD_ShowString(200,350, 200,24,24,"LoopEnd  ");
+        LCD_ShowStringMy(200,350, 200,24,24,"LoopEnd  ");
         }
 				
 				else if(i==16)   //退出
 				{
-        LCD_ShowString(200, 450, 200,24,24,"Exit ");
+        LCD_ShowStringMy(200, 450, 200,24,24,"Exit ");
 				break;
         }
 			 CH455_Write( CH455_DIG3 | showL[0] );	
@@ -2635,51 +2666,51 @@ void tandw()
         DTH11_ReadData(&temperature, &humidity);		                //  读取温湿度值
         sprintf(dispbuf, "%d C", temperature);
        // LCD_ShowString2(180, 200, (u8*)dispbuf,BLACK, WHITE);
-			  LCD_ShowString(100,200,200, 24,24,"Temperature：");
-				LCD_ShowString(300,200,200, 24,24,(u8*)dispbuf);	
+			  LCD_ShowStringMy(100,200,200, 24,24,"Temperature：");
+				LCD_ShowStringMy(300,200,200, 24,24,(u8*)dispbuf);	
 		    sprintf(dispbuf, "%d% %", humidity);
         //LCD_ShowString2(180, 220, (u8*)dispbuf,BLACK, WHITE);
-		   	LCD_ShowString(100,250,200, 24,24,"Humidity：");
-				LCD_ShowString(300,250,200, 24,24,(u8*)dispbuf);	
+		   	LCD_ShowStringMy(100,250,200, 24,24,"Humidity：");
+				LCD_ShowStringMy(300,250,200, 24,24,(u8*)dispbuf);	
 //        delay_ms(1000);
 			  if(temperature>=35)
 				{
 					gui_fill_circle(150,400,70,RED); 
-					LCD_ShowString(110, 500, 200,24,24,"Too High");
+					LCD_ShowStringMy(110, 500, 200,24,24,"Too High");
 					BEEP2();
 					delay_ms(1000);
 				}
 				if(temperature<=10)
 				{
 					gui_fill_circle(150,400,70,BLUE); 
-					LCD_ShowString(110, 500, 200,24,24,"Too Cold");
+					LCD_ShowStringMy(110, 500, 200,24,24,"Too Cold");
 					BEEP2();
 					delay_ms(1000);
 				}
 				else
 				{
 					gui_fill_circle(150,400,70,GREEN); 
-					LCD_ShowString(110, 500, 200,24,24,"Allright");
+					LCD_ShowStringMy(110, 500, 200,24,24,"Allright");
 					
 				}
 				if(humidity>=70)
 				{
 					gui_fill_circle(350,400,70,RED); 
-					LCD_ShowString(300, 500, 200,24,24,"Too Wet");
+					LCD_ShowStringMy(300, 500, 200,24,24,"Too Wet");
 					BEEP2();
 					delay_ms(1000);
 				}
 				if(humidity<=10)
 				{
 					gui_fill_circle(350,400,70,BLUE); 
-					LCD_ShowString(300, 500, 200,24,24,"Too Dry");
+					LCD_ShowStringMy(300, 500, 200,24,24,"Too Dry");
 					BEEP2();
 					delay_ms(1000);
 				}
 				else
 				{
 					gui_fill_circle(350,400,70,GREEN); 
-					LCD_ShowString(300, 500, 200,24,24,"Nor mal");
+					LCD_ShowStringMy(300, 500, 200,24,24,"Nor mal");
 					delay_ms(1000);
 				}
 		key = KeyScan();
@@ -2707,8 +2738,8 @@ void motor()
   LCD_Clear(WHITE);	
 	
 	LCD_DrawPicture(0, 0, 100, 100, (u8*)gImage_back);
-	LCD_ShowString(150, 50, 200,24,24,"Motor Imitate");
-	LCD_ShowString(100, 200,200,24,24, "Duty Cycle:0");
+	LCD_ShowStringMy(150, 50, 200,24,24,"Motor Imitate");
+	LCD_ShowStringMy(100, 200,200,24,24, "Duty Cycle:0");
 // while(1)
 //	{
 //        temp = KeyScan();
@@ -2743,7 +2774,7 @@ void motor()
             TIM_SetCompare1(TIM10, data);       //  占空比增加
             sprintf(dispbuf, "Duty Cycle:%-5d", data);  //  显示高电平数值
 //            LCD_ShowString2(200, 200, (u8*)dispbuf,BLACK, WHITE);
-						LCD_ShowString(100, 200,200,24,24, (u8*)dispbuf);
+						LCD_ShowStringMy(100, 200,200,24,24, (u8*)dispbuf);
         }
 				else if(t == 2)         
         {
@@ -2757,12 +2788,12 @@ void motor()
             }
             TIM_SetCompare1(TIM10, data);          
             sprintf(dispbuf, "Duty Cycle:%-5d", data);  
-            LCD_ShowString(100, 200,200,24,24, (u8*)dispbuf);
+            LCD_ShowStringMy(100, 200,200,24,24, (u8*)dispbuf);
         }
 				else if(t == 3) 
 				{
 				TIM_SetCompare1(TIM10, 0);
-				LCD_ShowString(100, 200,200,24,24, "Duty Cycle:0");
+				LCD_ShowStringMy(100, 200,200,24,24, "Duty Cycle:0");
 				break;
 				}
 
@@ -2800,14 +2831,14 @@ void closeforphone()    //锁屏界面的设计
 				 LCD_ShowNum(star_x-4+j, star_y-10+i,k,1,24);
 	       k=k+1;
 				}
-	  LCD_ShowString(star_x-10, star_y-10+step*3, 200, 24,24, "AC");
-	  LCD_ShowString(star_x-4+step, star_y-10+step*3, 200, 24,24, "0");
-	  LCD_ShowString(star_x-4+step*2, star_y-10+step*3, 200, 24,24, "X");
-		LCD_ShowString(star_x-10, star_y-10+step*3+65, 200, 24,24, "K12");
-		LCD_ShowString(star_x-4+step, star_y-10+step*3+65, 200, 24,24, "K10");
-		LCD_ShowString(star_x-4+step*2, star_y-10+step*3+65, 200, 24,24, "K11");
+	  LCD_ShowStringMy(star_x-10, star_y-10+step*3, 200, 24,24, "AC");
+	  LCD_ShowStringMy(star_x-4+step, star_y-10+step*3, 200, 24,24, "0");
+	  LCD_ShowStringMy(star_x-4+step*2, star_y-10+step*3, 200, 24,24, "X");
+		LCD_ShowStringMy(star_x-10, star_y-10+step*3+65, 200, 24,24, "K12");
+		LCD_ShowStringMy(star_x-4+step, star_y-10+step*3+65, 200, 24,24, "K10");
+		LCD_ShowStringMy(star_x-4+step*2, star_y-10+step*3+65, 200, 24,24, "K11");
 //		POINT_COLOR = GREEN;		
-    LCD_DrawRectangle(40,100,440,180);
+    LCD_DrawRectangle(40,100,440,180,BLACK);
 }
 void phone()
 {
@@ -2860,7 +2891,7 @@ while(1)
 				datatem=i;
 			  data=data+datatem;
 				sprintf(dispbuf, "%d", data);  
-				LCD_ShowString(200,140,200, 24,24,(u8*)dispbuf);	
+				LCD_ShowStringMy(200,140,200, 24,24,(u8*)dispbuf);	
         //LCD_ShowString2(200, 150, (u8*)dispbuf, BLACK, WHITE);
         showH[0] = BCD_decode_tab[0];
 		    showL[0] = BCD_decode_tab[i]; 
@@ -2871,7 +2902,7 @@ while(1)
         {
 					data=data*10;
 				  sprintf(dispbuf, "%d", data);  
-				  LCD_ShowString(200, 140,200, 24,24,(u8*)dispbuf);	
+				  LCD_ShowStringMy(200, 140,200, 24,24,(u8*)dispbuf);	
          showH[0] = BCD_decode_tab[i/10];
 		     showL[0] = BCD_decode_tab[i-10];
 				 BEEP3();
@@ -2882,7 +2913,7 @@ while(1)
 					closeforphone();	
 					data=data/10;
 				  sprintf(dispbuf, "%d", data);  
-				  LCD_ShowString(200, 140,200, 24,24,(u8*)dispbuf);	
+				  LCD_ShowStringMy(200, 140,200, 24,24,(u8*)dispbuf);	
          showH[0] = BCD_decode_tab[i/10];
 		     showL[0] = BCD_decode_tab[i-10];
 				 BEEP3();
@@ -2893,7 +2924,7 @@ while(1)
 					data=0;
 					closeforphone();	
 				  //sprintf(dispbuf, "%d", data);  
-				 // LCD_ShowString(200, 150,200, 24,24,(u8*)dispbuf);	
+				 // LCD_ShowStringMy(200, 150,200, 24,24,(u8*)dispbuf);	
          showH[0] = BCD_decode_tab[i/10];
 		     showL[0] = BCD_decode_tab[i-10];
 				 BEEP3();
@@ -2986,7 +3017,7 @@ void timer()
 			{
 				GNGGA_info(&RxDataOutPtr[2]);
 				sprintf(dispbuf, "%s", gps_time);
-				LCD_ShowString(190,180,200, 24,24,(u8*)dispbuf);	
+				LCD_ShowStringMy(190,180,200, 24,24,(u8*)dispbuf);	
 				h0=dispbuf[0]-'0';
 				h1=dispbuf[1]-'0';
 				m0=dispbuf[3]-'0';

@@ -120,13 +120,16 @@ void LCD_Fast_DrawPoint(u16 x, u16 y, u16 color);
 u16  LCD_ReadPoint(u16 x, u16 y);
 void LCD_Draw_Circle(u16 x0, u16 y0, u8 r);
 void LCD_DrawLine(u16 x1, u16 y1, u16 x2, u16 y2);
-void LCD_DrawRectangle(u16 x1, u16 y1, u16 x2, u16 y2);
+void LCD_DrawRectangle(u16 x1, u16 y1, u16 x2, u16 y2, u16 color);
 void LCD_Fill(u16 sx, u16 sy, u16 ex, u16 ey, u16 color);
 void LCD_Color_Fill(u16 sx, u16 sy, u16 ex, u16 ey, u16 *color);
 void LCD_ShowChar(u16 x, u16 y, u8 num, u8 size, u8 mode);
 void LCD_ShowNum(u16 x, u16 y, u32 num, u8 len, u8 size);
 void LCD_ShowxNum(u16 x, u16 y, u32 num, u8 len, u8 size, u8 mode);
-void LCD_ShowString(u16 x, u16 y, u16 width, u16 height, u8 size, u8 *p);
+void LCD_ShowStringMy(u16 x, u16 y, u16 width, u16 height, u8 size, u8 *p);
+void LCD_ShowString(u16 x0, u16 y0, u8 *pcStr, u16 PenColor, u16 BackColor);
+void LCD_ShowCharString(uint16_t x, uint16_t y, const uint8_t *p, uint16_t PenColor, uint16_t BackColor);
+void LCD_ShowHzString(u16 x, u16 y, u8 *c,u16 PenColor, u16 BackColor);
 void LCD_WriteReg(u16 LCD_Reg, u16 LCD_RegValue);
 u16 LCD_ReadReg(u16 LCD_Reg);
 void LCD_WriteRAM_Prepare(void);
@@ -138,10 +141,10 @@ void LCD_Showcn(u16 x0, u16 y0, u8 *pcStr, u16 PenColor, u16 BackColor);
 void LCD_DrawCircle_fill(int xc,int yc,int r,u16 *color);
 void LCDDrawLine_fill(u16 x1,u16 y1,u16 x2,u16 y2,u16 *color);
 void LCD_DrawPicture(u16 StartX, u16 StartY, u16 Xend, u16 Yend, u8 *pic);
-void apps(void);
-void menuset(void);
-int In(void);
-void Exit(void);
+void apps();
+void menuset();
+int In();
+void Exit();
 #endif
 
 

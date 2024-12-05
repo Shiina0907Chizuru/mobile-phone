@@ -37,3 +37,6 @@
 .\obj\key.o: ..\Libraries\STM32F4xx_StdPeriph_Driver\inc\misc.h
 .\obj\key.o: ..\BaseDrive\KEY.h
 .\obj\key.o: ..\BaseDrive\delay.h
+.\obj\key.o: ..\BaseDrive\LCD.h
+.\obj\key.o: ..\BaseDrive\sys.h
+.\obj\key.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h

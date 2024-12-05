@@ -63,18 +63,18 @@ void UART3_Configuration(void)
 输出参数：无
 函数返回：无
 **********************************************************************************************************/
-int fputc(int ch, FILE *f)
-{
-    USART3->SR;                                                         // 防止复位后无法打印首字符
+// int fputc(int ch, FILE *f)
+// {
+//     USART3->SR;                                                         // 防止复位后无法打印首字符
     
-    USART_SendData(USART3, (u8) ch);
-    while(USART_GetFlagStatus(USART3, USART_FLAG_TC) == RESET)
-    {
-        ; 
-    }
+//     USART_SendData(USART3, (u8) ch);
+//     while(USART_GetFlagStatus(USART3, USART_FLAG_TC) == RESET)
+//     {
+//         ; 
+//     }
     
-    return (ch);
-}
+//     return (ch);
+// }
 
 /**********************************************************************************************************
 函数名称：USART3发送数据函数
