@@ -3078,6 +3078,7 @@ void apps()
     u8 t = 0;
     u8 i = 0;
     u16 lastpos[5][2];		//最后一次的数据
+    int f[8]={0,0,0,0,0,0,0,0};
 	  LED1_OFF;
 	LED2_OFF;
 	  LED3_OFF;
@@ -3116,44 +3117,91 @@ void apps()
 							phone_flag = 0;
 							time_flag=0;
 						}
-                if(tp_dev.x[t]>60&&tp_dev.x[t]<210&&tp_dev.y[t]>20&&tp_dev.y[t]<170)  //photo
+                if(tp_dev.x[t]>60&&tp_dev.x[t]<210&&tp_dev.y[t]>20&&tp_dev.y[t]<170&&f[0]==0)  //photo
                 {
 									  photo_flag=1;
                 }
-								if(tp_dev.x[t]>60&&tp_dev.x[t]<210&&tp_dev.y[t]>590&&tp_dev.y[t]<740)  //light
+								if(tp_dev.x[t]>60&&tp_dev.x[t]<210&&tp_dev.y[t]>590&&tp_dev.y[t]<740&&f[1]==0)  //light
                 {
 									  light_flag=1;
 									
                 }
-								if(tp_dev.x[t]>60&&tp_dev.x[t]<210&&tp_dev.y[t]>210&&tp_dev.y[t]<360)  //gps
+								if(tp_dev.x[t]>60&&tp_dev.x[t]<210&&tp_dev.y[t]>210&&tp_dev.y[t]<360&&f[2]==0)  //gps
                 {
 									  gps_flag=1;
 									
                 }
-								if(tp_dev.x[t]>250&&tp_dev.x[t]<400&&tp_dev.y[t]>400&&tp_dev.y[t]<550)  //gps
+								if(tp_dev.x[t]>250&&tp_dev.x[t]<400&&tp_dev.y[t]>400&&tp_dev.y[t]<550&&f[3]==0)  //gps
                 {
 									  mp3_flag=1;
 									
                 }
-								if(tp_dev.x[t]>60&&tp_dev.x[t]<210&&tp_dev.y[t]>400&&tp_dev.y[t]<550)  //gps
+								if(tp_dev.x[t]>60&&tp_dev.x[t]<210&&tp_dev.y[t]>400&&tp_dev.y[t]<550&&f[4]==0)  //gps
                 {
 									  temwet_flag=1;
 									
                 }
-								if(tp_dev.x[t]>250&&tp_dev.x[t]<400&&tp_dev.y[t]>590&&tp_dev.y[t]<740)  //gps
+								if(tp_dev.x[t]>250&&tp_dev.x[t]<400&&tp_dev.y[t]>590&&tp_dev.y[t]<740&&f[5]==0)  //gps
                 {
 									  motor_flag=1;
 									
                 }
-								if(tp_dev.x[t]>250&&tp_dev.x[t]<400&&tp_dev.y[t]>210&&tp_dev.y[t]<360)  //gps
+								if(tp_dev.x[t]>250&&tp_dev.x[t]<400&&tp_dev.y[t]>210&&tp_dev.y[t]<360&&f[6]==0)  //gps
                 {
 									  phone_flag=1;
 									
                 }
-								if(tp_dev.x[t]>250&&tp_dev.x[t]<400&&tp_dev.y[t]>21&&tp_dev.y[t]<170)  //gps
+								if(tp_dev.x[t]>250&&tp_dev.x[t]<400&&tp_dev.y[t]>21&&tp_dev.y[t]<170&&f[7]==0)  //gps
                 {
 									  time_flag=1;
 									
+                }
+                // 当触摸点不在photo区域内时，清除f[0]
+                if (tp_dev.x[t] < 60 || tp_dev.x[t] > 210 || tp_dev.y[t] < 20 || tp_dev.y[t] > 170)
+                {
+                    f[0] = 0;
+                }
+
+                // 当触摸点不在light区域内时，清除f[1]
+                if (tp_dev.x[t] < 60 || tp_dev.x[t] > 210 || tp_dev.y[t] < 590 || tp_dev.y[t] > 740)
+                {
+                    f[1] = 0;
+                }
+
+                // 当触摸点不在gps区域内时，清除f[2]
+                if (tp_dev.x[t] < 60 || tp_dev.x[t] > 210 || tp_dev.y[t] < 210 || tp_dev.y[t] > 360)
+                {
+                    f[2] = 0;
+                }
+
+                // 当触摸点不在mp3区域内时，清除f[3]
+                if (tp_dev.x[t] < 250 || tp_dev.x[t] > 400 || tp_dev.y[t] < 400 || tp_dev.y[t] > 550)
+                {
+                    f[3] = 0;
+                }
+
+                // 当触摸点不在temwet区域内时，清除f[4]
+                if (tp_dev.x[t] < 60 || tp_dev.x[t] > 210 || tp_dev.y[t] < 400 || tp_dev.y[t] > 550)
+                {
+                    f[4] = 0;
+                }
+
+                // 当触摸点不在motor区域内时，清除f[5]
+                if (tp_dev.x[t] < 250 || tp_dev.x[t] > 400 || tp_dev.y[t] < 590 || tp_dev.y[t] > 740)
+                {
+                    f[5] = 0;
+                }
+
+                // 当触摸点不在phone区域内时，清除f[6]
+                if (tp_dev.x[t] < 250 || tp_dev.x[t] > 400 || tp_dev.y[t] < 210 || tp_dev.y[t] > 360)
+                {
+                    f[6] = 0;
+                }
+
+                // 当触摸点不在time区域内时，清除f[7]
+                if (tp_dev.x[t] < 250 || tp_dev.x[t] > 400 || tp_dev.y[t] < 21 || tp_dev.y[t] > 170)
+                {
+                    f[7] = 0;
                 }
 								//交互
 								if(photo_flag)
