@@ -7,7 +7,7 @@
 #include "Hzk16song.h"
 #include "photo.h"
 #include "timer.h"
-#include "111.h"
+// #include "111.h"
 #include "back.h"
 #include "shang.h"
 #include "xia.h"
@@ -21,7 +21,7 @@
 #include "led.h"
 #include "LED.h"
 #include "KEY.h"
-#include "2015.h"
+// #include "2015.h"
 #include "lcd.h"
 #include "mp3.h"
 #include "listen.h"
@@ -34,8 +34,8 @@
 #include <math.h>
 #include "girl1.h"
 #include "girl2.h"
-#include "girl3.h"
-#include "girl4.h"
+// #include "girl3.h"
+// #include "girl4.h"
 //LCD的画笔颜色和背景色
 u16 POINT_COLOR = 0x0000;	                                            // 画笔颜色
 u16 BACK_COLOR  = 0xFFFF;                                               // 背景色
@@ -1551,6 +1551,7 @@ void Exit(void)
     u8 t = 0;
     u8 i = 0;
     u16 lastpos[5][2];		//最后一次的数据
+    int f=0;
     exit_flag = 0;
     while(1)
     {
@@ -1569,7 +1570,7 @@ void Exit(void)
                     }
                 }
             }
-            if(tp_dev.x[t]>0&&tp_dev.x[t]<100&&tp_dev.y[t]>0&&tp_dev.y[t]<100)
+            if(tp_dev.x[t]>0&&tp_dev.x[t]<100&&tp_dev.y[t]>0&&tp_dev.y[t]<100&&f==0)
             {
                 exit_flag = 1;
 							  delay_ms(100);
@@ -3119,40 +3120,48 @@ void apps()
 						}
                 if(tp_dev.x[t]>60&&tp_dev.x[t]<210&&tp_dev.y[t]>20&&tp_dev.y[t]<170&&f[0]==0)  //photo
                 {
+                    f[0] = 1;
 									  photo_flag=1;
                 }
 								if(tp_dev.x[t]>60&&tp_dev.x[t]<210&&tp_dev.y[t]>590&&tp_dev.y[t]<740&&f[1]==0)  //light
                 {
-									  light_flag=1;
+									  f[1] = 1;
+                    light_flag=1;
 									
                 }
 								if(tp_dev.x[t]>60&&tp_dev.x[t]<210&&tp_dev.y[t]>210&&tp_dev.y[t]<360&&f[2]==0)  //gps
                 {
+                    f[2] = 1;
 									  gps_flag=1;
 									
                 }
 								if(tp_dev.x[t]>250&&tp_dev.x[t]<400&&tp_dev.y[t]>400&&tp_dev.y[t]<550&&f[3]==0)  //gps
                 {
+                    f[3] = 1;
 									  mp3_flag=1;
 									
                 }
 								if(tp_dev.x[t]>60&&tp_dev.x[t]<210&&tp_dev.y[t]>400&&tp_dev.y[t]<550&&f[4]==0)  //gps
                 {
+                    f[4] = 1;
 									  temwet_flag=1;
 									
                 }
 								if(tp_dev.x[t]>250&&tp_dev.x[t]<400&&tp_dev.y[t]>590&&tp_dev.y[t]<740&&f[5]==0)  //gps
                 {
+                    f[5] = 1;
 									  motor_flag=1;
 									
                 }
 								if(tp_dev.x[t]>250&&tp_dev.x[t]<400&&tp_dev.y[t]>210&&tp_dev.y[t]<360&&f[6]==0)  //gps
                 {
+                    f[6] = 1;
 									  phone_flag=1;
 									
                 }
 								if(tp_dev.x[t]>250&&tp_dev.x[t]<400&&tp_dev.y[t]>21&&tp_dev.y[t]<170&&f[7]==0)  //gps
                 {
+                    f[7] = 1;
 									  time_flag=1;
 									
                 }

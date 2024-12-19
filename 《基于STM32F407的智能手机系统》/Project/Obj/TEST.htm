@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Obj\TEST.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Obj\TEST.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060061: Last Updated: Thu Dec 19 08:40:33 2024
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060061: Last Updated: Thu Dec 19 09:17:57 2024
 <BR><P>
 <H3>Maximum Stack Usage =        552 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -1033,8 +1033,8 @@ Global Symbols
 <P><STRONG><a name="[1bd]"></a>SYSCFG_GetCompensationCellStatus</STRONG> (Thumb, 22 bytes, Stack size 0 bytes, stm32f4xx_syscfg.o(.text), UNUSED)
 
 <P><STRONG><a name="[a6]"></a>TIM_DeInit</STRONG> (Thumb, 346 bytes, Stack size 8 bytes, stm32f4xx_tim.o(.text), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB2PeriphResetCmd
-<LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB1PeriphResetCmd
+<BR><BR>[Calls]<UL><LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB1PeriphResetCmd
+<LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB2PeriphResetCmd
 </UL>
 
 <P><STRONG><a name="[86]"></a>TIM_TimeBaseInit</STRONG> (Thumb, 104 bytes, Stack size 0 bytes, stm32f4xx_tim.o(.text))
@@ -1273,8 +1273,8 @@ Global Symbols
 <P><STRONG><a name="[200]"></a>TIM_RemapConfig</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, stm32f4xx_tim.o(.text), UNUSED)
 
 <P><STRONG><a name="[b8]"></a>USART_DeInit</STRONG> (Thumb, 156 bytes, Stack size 8 bytes, stm32f4xx_usart.o(.text), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB2PeriphResetCmd
-<LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB1PeriphResetCmd
+<BR><BR>[Calls]<UL><LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB1PeriphResetCmd
+<LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB2PeriphResetCmd
 </UL>
 
 <P><STRONG><a name="[b9]"></a>USART_Init</STRONG> (Thumb, 204 bytes, Stack size 48 bytes, stm32f4xx_usart.o(.text))
@@ -2194,8 +2194,8 @@ Global Symbols
 <LI><a href="#[11a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Light
 </UL>
 
-<P><STRONG><a name="[113]"></a>Exit</STRONG> (Thumb, 210 bytes, Stack size 32 bytes, lcd.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = Exit
+<P><STRONG><a name="[113]"></a>Exit</STRONG> (Thumb, 216 bytes, Stack size 40 bytes, lcd.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = Exit
 </UL>
 <BR>[Calls]<UL><LI><a href="#[71]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_ms
 </UL>
@@ -2209,7 +2209,7 @@ Global Symbols
 <LI><a href="#[11a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Light
 </UL>
 
-<P><STRONG><a name="[114]"></a>ctp_test2</STRONG> (Thumb, 2210 bytes, Stack size 96 bytes, lcd.o(.text))
+<P><STRONG><a name="[114]"></a>ctp_test2</STRONG> (Thumb, 2212 bytes, Stack size 96 bytes, lcd.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 184<LI>Call Chain = ctp_test2 &rArr; __aeabi_dsub &rArr; __aeabi_dadd &rArr; _double_epilogue &rArr; _double_round
 </UL>
 <BR>[Calls]<UL><LI><a href="#[71]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_ms
@@ -2333,7 +2333,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[75]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;apps
 </UL>
 
-<P><STRONG><a name="[121]"></a>music</STRONG> (Thumb, 1706 bytes, Stack size 40 bytes, lcd.o(.text))
+<P><STRONG><a name="[121]"></a>music</STRONG> (Thumb, 1406 bytes, Stack size 40 bytes, lcd.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 136<LI>Call Chain = music &rArr; LCD_ShowStringMy &rArr; LCD_ShowChar &rArr; LCD_Fast_DrawPoint &rArr; LCD_WR_DATA
 </UL>
 <BR>[Calls]<UL><LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CH455_Write
@@ -2357,7 +2357,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[75]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;apps
 </UL>
 
-<P><STRONG><a name="[122]"></a>tandw</STRONG> (Thumb, 554 bytes, Stack size 128 bytes, lcd.o(.text))
+<P><STRONG><a name="[122]"></a>tandw</STRONG> (Thumb, 858 bytes, Stack size 128 bytes, lcd.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 268<LI>Call Chain = tandw &rArr; LCD_ShowString2 &rArr; LCD_ShowHzString &rArr; LCD_DrawPointcn &rArr; LCD_SetCursor &rArr; LCD_WR_DATA
 </UL>
 <BR>[Calls]<UL><LI><a href="#[71]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_ms
@@ -2391,7 +2391,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[75]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;apps
 </UL>
 
-<P><STRONG><a name="[126]"></a>closeforphone</STRONG> (Thumb, 602 bytes, Stack size 40 bytes, lcd.o(.text))
+<P><STRONG><a name="[126]"></a>closeforphone</STRONG> (Thumb, 608 bytes, Stack size 40 bytes, lcd.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 160<LI>Call Chain = closeforphone &rArr; LCD_DrawRectangle &rArr; LCD_DrawLine &rArr; LCD_DrawPoint &rArr; LCD_SetCursor &rArr; LCD_WR_DATA
 </UL>
 <BR>[Calls]<UL><LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_Draw_Circle
@@ -2432,7 +2432,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[129]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;timer
 </UL>
 
-<P><STRONG><a name="[129]"></a>timer</STRONG> (Thumb, 1566 bytes, Stack size 248 bytes, lcd.o(.text))
+<P><STRONG><a name="[129]"></a>timer</STRONG> (Thumb, 1544 bytes, Stack size 248 bytes, lcd.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 488<LI>Call Chain = timer &rArr; __hardfp_sin &rArr; __ieee754_rem_pio2 &rArr; __aeabi_dmul &rArr; _double_epilogue &rArr; _double_round
 </UL>
 <BR>[Calls]<UL><LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CH455_Write
@@ -2464,7 +2464,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[75]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;apps
 </UL>
 
-<P><STRONG><a name="[75]"></a>apps</STRONG> (Thumb, 1338 bytes, Stack size 56 bytes, lcd.o(.text))
+<P><STRONG><a name="[75]"></a>apps</STRONG> (Thumb, 1352 bytes, Stack size 56 bytes, lcd.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 544<LI>Call Chain = apps &rArr; timer &rArr; __hardfp_sin &rArr; __ieee754_rem_pio2 &rArr; __aeabi_dmul &rArr; _double_epilogue &rArr; _double_round
 </UL>
 <BR>[Calls]<UL><LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_SetBits

@@ -45,7 +45,6 @@
 .\obj\lcd.o: ..\BaseDrive\Hzk16song.h
 .\obj\lcd.o: ..\User\photo.h
 .\obj\lcd.o: ..\User\timer.h
-.\obj\lcd.o: ..\User\111.h
 .\obj\lcd.o: ..\User\back.h
 .\obj\lcd.o: ..\User\shang.h
 .\obj\lcd.o: ..\User\xia.h
@@ -62,7 +61,6 @@
 .\obj\lcd.o: ..\BaseDrive\led.h
 .\obj\lcd.o: ..\BaseDrive\LED.h
 .\obj\lcd.o: ..\BaseDrive\KEY.h
-.\obj\lcd.o: ..\User\2015.h
 .\obj\lcd.o: ..\BaseDrive\mp3.h
 .\obj\lcd.o: ..\User\listen.h
 .\obj\lcd.o: ..\BaseDrive\ADC.h
@@ -74,5 +72,3 @@
 .\obj\lcd.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
 .\obj\lcd.o: ..\photo\girl1.h
 .\obj\lcd.o: ..\photo\girl2.h
-.\obj\lcd.o: ..\photo\girl3.h
-.\obj\lcd.o: ..\photo\girl4.h
