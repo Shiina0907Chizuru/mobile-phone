@@ -1,0 +1,21 @@
+{
+    "files.associations": {
+        "CH455I2C.C": "cpp",
+        "mp3.h": "c",
+        "led.h": "c",
+        "stm32f4xx_it.h": "c",
+        "delay.h": "c",
+        "rx_data_queue.h": "c",
+        "usart.h": "c",
+        "bsp_as608.h": "c",
+        "dac.h": "c",
+        "stm32f4xx.h": "c",
+        "key.h": "c",
+        "w25qxx.h": "c",
+        "spi.h": "c",
+        "lcd.h": "c",
+        "ch455i2c.h": "c",
+        "adc.h": "c",
+        "CH455I2C.H": "cpp"
+    }
+}

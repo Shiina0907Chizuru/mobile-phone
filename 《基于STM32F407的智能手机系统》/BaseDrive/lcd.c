@@ -2104,6 +2104,115 @@ void close()    //锁屏界面的设计
 	  POINT_COLOR = BLUE; 
 	  LCD_Showcn(star_x+90,star_y-160,"请输入锁屏密码！",BLACK, WHITE);
 }
+// int In_FR(void)
+// {
+//     uint8_t key = 0;
+//     uint8_t local_mode = 1;  // 1:选择界面 2:密码解锁 3:指纹解锁
+//     uint8_t flag = 1;        // 显示标志
+    
+//     // 初始化屏幕
+//     LCD_Clear(WHITE);
+//     POINT_COLOR = BLUE;
+    
+//     while(1)
+//     {
+//         // 显示界面
+//         if(flag)
+//         {
+//             LCD_Clear(WHITE);  // 每次切换界面都清屏
+//             switch(local_mode)
+//             {
+//                 case 1:  // 选择解锁方式界面
+//                     LCD_ShowStringMy(100,100,300,24,24,"请选择解锁方式");
+//                     LCD_ShowStringMy(50,150,400,24,24,"1.密码解锁  2.指纹解锁");
+//                     break;
+                    
+//                 case 2:  // 密码解锁界面
+//                     close();  // 显示密码输入界面
+//                     break;
+                    
+//                 case 3:  // 指纹解锁界面
+//                     LCD_ShowStringMy(100,100,300,24,24,"请进行指纹验证");
+//                     LCD_ShowStringMy(50,150,400,24,24,"按1返回选择界面");
+//                     Compare_FR();  // 立即开始指纹验证
+//                     break;
+//             }
+//             flag = 0;
+//         }
+        
+//         key = KeyScan();
+//         if(key != 0)  // 只有在有按键时才处理
+//         {
+//             switch(local_mode)
+//             {
+//                 case 1:  // 选择解锁方式
+//                     if(key == 1) {
+//                         local_mode = 2;  // 进入密码解锁
+//                         flag = 1;
+//                     }
+//                     else if(key == 2) {
+//                         local_mode = 3;  // 进入指纹解锁
+//                         flag = 1;
+//                     }
+//                     break;
+                    
+//                 case 2:  // 密码解锁处理
+//                     ctp_test2();  // 获取密码输入
+//                     delay_ms(200);
+                    
+//                     // 验证密码
+//                     for(int j=0; j<4; j++)
+//                     { 
+//                         if(password_smart[j] != Password_smart[j])
+//                         {  
+//                             BEEP2();
+//                             LCD_Clear(WHITE);
+//                             LCD_ShowStringMy(0,300,450,24,24,"密码错误，请重试");
+//                             delay_ms(1000);
+//                             local_mode = 1;  // 返回选择界面
+//                             flag = 1;
+//                             break;
+//                         }
+//                         if(j == 3)  // 密码正确
+//                         {
+//                             BEEP1();
+//                             LCD_Clear(WHITE);
+//                             LCD_ShowStringMy(200,300,200,24,24,"WELCOME");
+//                             delay_ms(1000);
+//                             return 1;
+//                         }
+//                     }
+//                     break;
+                    
+//                 case 3:  // 指纹解锁处理
+//                     if(key == 1) {  // 返回选择界面
+//                         local_mode = 1;
+//                         flag = 1;
+//                     }
+//                     else if(PS_Sta) {  // 检查指纹模块状态
+//                         if(PS_Sta == 0x00) {  // 指纹验证成功
+//                             BEEP1();
+//                             LCD_Clear(WHITE);
+//                             LCD_ShowStringMy(200,300,200,24,24,"WELCOME");
+//                             delay_ms(1000);
+//                             return 1;
+//                         }
+//                         else {  // 指纹验证失败
+//                             BEEP2();
+//                             LCD_Clear(WHITE);
+//                             LCD_ShowStringMy(100,300,300,24,24,"指纹验证失败，请重试");
+//                             delay_ms(1000);
+//                             local_mode = 1;  // 返回选择界面
+//                             flag = 1;
+//                         }
+//                     }
+//                     break;
+//             }
+//         }
+        
+//         delay_ms(10);  // 缩短延时，提高响应速度
+//     }
+// }
 int In()
 {
 		int k=1;
@@ -2148,6 +2257,105 @@ int In()
 				return 1;
 			 }
      }
+}
+void FR_Management(void)
+{
+    uint8_t key = 0;
+    uint8_t local_mode = 1;  // 局部模式变量，1为主界面
+    uint8_t flag = 1;        // 显示标志
+    
+    while(1)  // 持续运行直到返回
+    {
+        // 显示界面
+        if(flag)
+        {
+            switch(local_mode)
+            {
+                case 1:  // 指纹管理主界面
+                    LCD_Clear(WHITE);
+                    LCD_ShowStringMy(100,100,300,24,24,"指纹管理系统");
+                    LCD_ShowStringMy(50,150,400,24,24,"1.添加指纹  2.删除指纹  3.返回");
+                    break;
+                    
+                case 2:  // 添加指纹界面
+                    LCD_Clear(WHITE);
+                    Add_FR();         // 添加指纹
+                    Show_Message();
+                    break;
+                    
+                case 3:  // 删除指纹界面
+                    LCD_Clear(WHITE);
+                    LCD_ShowStringMy(100,100,300,24,24,"删除指纹");
+                    LCD_ShowStringMy(50,150,400,24,24,"1.删除单个  2.清空指纹库  3.返回");
+                    break;
+                    
+                case 4:  // 删除单个指纹
+                    LCD_Clear(WHITE);
+                    Del_FR();
+                    Show_Message();
+                    break;
+                    
+                case 5:  // 清空指纹库
+                    LCD_Clear(WHITE);
+                    Clean_FR();
+                    Show_Message();
+                    break;
+            }
+            flag = 0;  // 清除显示标志
+        }
+        
+        // 按键处理
+        key = KeyScan();
+        switch(local_mode)
+        {
+            case 1:  // 指纹管理主界面
+                if(key == 1) {
+                    local_mode = 2;  // 进入添加指纹
+                    flag = 1;
+                }
+                else if(key == 2) {
+                    local_mode = 3;  // 进入删除指纹
+                    flag = 1;
+                }
+                else if(key == 3) {
+                    LCD_Clear(WHITE);
+                    return;          // 返回上级菜单
+                }
+                break;
+                
+            case 2:  // 添加指纹界面
+                if(key == 1) {
+                    local_mode = 1;  // 返回主界面
+                    flag = 1;
+                }
+                break;
+                
+            case 3:  // 删除指纹界面
+                if(key == 1) {
+                    local_mode = 4;  // 删除单个指纹
+                    flag = 1;
+                }
+                else if(key == 2) {
+                    local_mode = 5;  // 清空指纹库
+                    flag = 1;
+                }
+                else if(key == 3) {
+                    local_mode = 1;  // 返回主界面
+                    flag = 1;
+                }
+                break;
+                
+            case 4:  // 删除单个指纹
+            case 5:  // 清空指纹库
+                if(key == 1) {
+                    local_mode = 3;  // 返回删除指纹界面
+                    flag = 1;
+                }
+                break;
+        }
+        
+        delay_ms(100);  // 延时防抖
+    }
 }
 void menuset()
 {

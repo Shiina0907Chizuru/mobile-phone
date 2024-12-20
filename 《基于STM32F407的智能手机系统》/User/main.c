@@ -31,6 +31,7 @@
 #include "rx_data_queue.h"
 #include "bsp_as608.h"
 #include "as608_test.h"
+#include "w25qxx.h" 
 #include "CH455I2C.H"
 #include "I2C.h"
 #include "stm32f4xx_it.h"
@@ -38,14 +39,15 @@ int main(void)
 {
 	int enter=0;
     // float t       emp;
-    SysTick_Init();		//��ʱ��ʼ��
+    SysTick_Init();		//????????
     LEDGpio_Init();			
     BEEPGpio_Init();
     KEYGpio_Init();  	
-	  LCD_Init();			//LCD��ʼ��
+	  LCD_Init();			//LCD?????
 	  Adc_Init();
+	W25QXX_Init();
 	//  rx_queue_init();
-		AS608_Config();
+		// AS608_Config();
 	  UART3_Configuration();   
 	//   UART5_Configuration(9600);  
     UART6_Configuration(9600);  
@@ -53,8 +55,8 @@ int main(void)
     delay_ms(200); DCMotorGpio_Init();
 	 // setMp3Vol(15);
 //    TIM2_Configuration();
-//	  EXTI_Config();  //  �����ⲿ�ж�0
-    tp_dev.init();				//��������ʼ��
+//	  EXTI_Config();  //  ???????��?0
+    tp_dev.init();				//???????????
 
    POINT_COLOR = BLUE;          
    enter=In();

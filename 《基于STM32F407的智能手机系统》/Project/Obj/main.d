@@ -63,6 +63,7 @@
 .\obj\main.o: ..\BaseDrive\bsp_as608.h
 .\obj\main.o: ..\BaseDrive\bsp_debug_usart.h
 .\obj\main.o: ..\BaseDrive\as608_test.h
+.\obj\main.o: ..\BaseDrive\w25qxx.h
 .\obj\main.o: ..\User\CH455I2C.H
 .\obj\main.o: ..\User\I2C.h
 .\obj\main.o: ..\User\stm32f4xx_it.h

@@ -45,5 +45,9 @@
 .\obj\stm32f4xx_it.o: ..\BaseDrive\sys.h
 .\obj\stm32f4xx_it.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
 .\obj\stm32f4xx_it.o: ..\User\CH455I2C.H
+.\obj\stm32f4xx_it.o: ..\BaseDrive\rx_data_queue.h
+.\obj\stm32f4xx_it.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+.\obj\stm32f4xx_it.o: ..\BaseDrive\bsp_as608.h
+.\obj\stm32f4xx_it.o: ..\BaseDrive\bsp_debug_usart.h
 .\obj\stm32f4xx_it.o: ..\User\I2C.h
 .\obj\stm32f4xx_it.o: ..\BaseDrive\ADC.h

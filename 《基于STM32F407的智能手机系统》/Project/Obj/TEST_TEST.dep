@@ -36,7 +36,7 @@ I (..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_usart.h)(0x4EC0F5EC)
 I (..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_wwdg.h)(0x4EC0F5EC)
 I (..\Libraries\STM32F4xx_StdPeriph_Driver\inc\misc.h)(0x4EC0F5EA)
 F (..\Libraries\CMSIS\Device\ST\STM32F4xx\Source\Templates\arm\startup_stm32f4xx.s)(0x4EC0F5E8)(--cpu Cortex-M4.fp -g --apcs=interwork --pd "__MICROLIB SETA 1"-I E:\ZJUT\科目学习资料\单片机课设\智能手机\《基于STM32F407的智能手机系统》\Project\RTE-I D:\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include-I D:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.7.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include--pd "__UVISION_VERSION SETA 517" --pd "_RTE_ SETA 1" --pd "STM32F407xx SETA 1"--list .\list\startup_stm32f4xx.lst --xref -o .\obj\startup_stm32f4xx.o --depend .\obj\startup_stm32f4xx.d)
-F (..\User\main.c)(0x67650B52)(--c99 -c --cpu Cortex-M4.fp -D__MICROLIB -g -O0 --apcs=interwork -I..\Libraries\CMSIS\Device\ST\STM32F4xx\Include -I..\User -I..\Libraries\STM32F4xx_StdPeriph_Driver\inc -I..\BaseDrive -I..\ExternalDrive\lcd -I..\photo-I E:\ZJUT\科目学习资料\单片机课设\智能手机\《基于STM32F407的智能手机系统》\Project\RTE-I D:\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include-I D:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.7.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="517" -D_RTE_ -DSTM32F407xx -DSTM32F4XX -DUSE_STDPERIPH_DRIVER-o .\obj\main.o --omf_browse .\obj\main.crf --depend .\obj\main.d)
+F (..\User\main.c)(0x676536EA)(--c99 -c --cpu Cortex-M4.fp -D__MICROLIB -g -O0 --apcs=interwork -I..\Libraries\CMSIS\Device\ST\STM32F4xx\Include -I..\User -I..\Libraries\STM32F4xx_StdPeriph_Driver\inc -I..\BaseDrive -I..\ExternalDrive\lcd -I..\photo-I E:\ZJUT\科目学习资料\单片机课设\智能手机\《基于STM32F407的智能手机系统》\Project\RTE-I D:\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include-I D:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.7.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="517" -D_RTE_ -DSTM32F407xx -DSTM32F4XX -DUSE_STDPERIPH_DRIVER-o .\obj\main.o --omf_browse .\obj\main.crf --depend .\obj\main.d)
 I (..\Libraries\CMSIS\Device\ST\STM32F4xx\Include\stm32f4xx.h)(0x4EC0F5E8)
 I (D:\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include\core_cm4.h)(0x5625B70C)
 I (D:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x55DB2B80)
@@ -84,7 +84,7 @@ I (D:\Keil_v5\ARM\ARMCC\include\string.h)(0x55DB2B78)
 I (D:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x55DB2B76)
 I (D:\Keil_v5\ARM\ARMCC\include\math.h)(0x55DB2B7E)
 I (..\BaseDrive\GPS.h)(0x62217534)
-I (..\BaseDrive\lcd.h)(0x67518955)
+I (..\BaseDrive\lcd.h)(0x676525E3)
 I (..\BaseDrive\sys.h)(0x6477E46A)
 I (..\BaseDrive\touch.h)(0x627A03EA)
 I (..\BaseDrive\ott2001a.h)(0x627A03EA)
@@ -100,10 +100,11 @@ I (..\BaseDrive\rx_data_queue.h)(0x658A7050)
 I (..\BaseDrive\bsp_as608.h)(0x658AB07E)
 I (..\BaseDrive\bsp_debug_usart.h)(0x658981AC)
 I (..\BaseDrive\as608_test.h)(0x659210A8)
+I (..\BaseDrive\w25qxx.h)(0x65901F06)
 I (..\User\CH455I2C.H)(0x65143A60)
 I (..\User\I2C.h)(0x62216D1A)
 I (..\User\stm32f4xx_it.h)(0x65926B18)
-F (..\User\stm32f4xx_it.c)(0x65940782)(--c99 -c --cpu Cortex-M4.fp -D__MICROLIB -g -O0 --apcs=interwork -I..\Libraries\CMSIS\Device\ST\STM32F4xx\Include -I..\User -I..\Libraries\STM32F4xx_StdPeriph_Driver\inc -I..\BaseDrive -I..\ExternalDrive\lcd -I..\photo-I E:\ZJUT\科目学习资料\单片机课设\智能手机\《基于STM32F407的智能手机系统》\Project\RTE-I D:\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include-I D:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.7.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="517" -D_RTE_ -DSTM32F407xx -DSTM32F4XX -DUSE_STDPERIPH_DRIVER-o .\obj\stm32f4xx_it.o --omf_browse .\obj\stm32f4xx_it.crf --depend .\obj\stm32f4xx_it.d)
+F (..\User\stm32f4xx_it.c)(0x676536CD)(--c99 -c --cpu Cortex-M4.fp -D__MICROLIB -g -O0 --apcs=interwork -I..\Libraries\CMSIS\Device\ST\STM32F4xx\Include -I..\User -I..\Libraries\STM32F4xx_StdPeriph_Driver\inc -I..\BaseDrive -I..\ExternalDrive\lcd -I..\photo-I E:\ZJUT\科目学习资料\单片机课设\智能手机\《基于STM32F407的智能手机系统》\Project\RTE-I D:\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include-I D:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.7.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="517" -D_RTE_ -DSTM32F407xx -DSTM32F4XX -DUSE_STDPERIPH_DRIVER-o .\obj\stm32f4xx_it.o --omf_browse .\obj\stm32f4xx_it.crf --depend .\obj\stm32f4xx_it.d)
 I (..\User\stm32f4xx_it.h)(0x65926B18)
 I (..\Libraries\CMSIS\Device\ST\STM32F4xx\Include\stm32f4xx.h)(0x4EC0F5E8)
 I (D:\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include\core_cm4.h)(0x5625B70C)
@@ -145,10 +146,14 @@ I (..\BaseDrive\delay.h)(0x59795EDE)
 I (..\BaseDrive\MPU6050.h)(0x61D3BD8E)
 I (D:\Keil_v5\ARM\ARMCC\include\string.h)(0x55DB2B78)
 I (..\BaseDrive\GPS.h)(0x62217534)
-I (..\BaseDrive\lcd.h)(0x67518955)
+I (..\BaseDrive\lcd.h)(0x676525E3)
 I (..\BaseDrive\sys.h)(0x6477E46A)
 I (D:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x55DB2B78)
 I (..\User\CH455I2C.H)(0x65143A60)
+I (..\BaseDrive\rx_data_queue.h)(0x658A7050)
+I (D:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x55DB2B76)
+I (..\BaseDrive\bsp_as608.h)(0x658AB07E)
+I (..\BaseDrive\bsp_debug_usart.h)(0x658981AC)
 I (..\User\I2C.h)(0x62216D1A)
 I (..\BaseDrive\ADC.h)(0x61C572CC)
 F (..\User\a.c)(0x658FF140)(--c99 -c --cpu Cortex-M4.fp -D__MICROLIB -g -O0 --apcs=interwork -I..\Libraries\CMSIS\Device\ST\STM32F4xx\Include -I..\User -I..\Libraries\STM32F4xx_StdPeriph_Driver\inc -I..\BaseDrive -I..\ExternalDrive\lcd -I..\photo-I E:\ZJUT\科目学习资料\单片机课设\智能手机\《基于STM32F407的智能手机系统》\Project\RTE-I D:\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include-I D:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.7.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="517" -D_RTE_ -DSTM32F407xx -DSTM32F4XX -DUSE_STDPERIPH_DRIVER-o .\obj\a.o --omf_browse .\obj\a.crf --depend .\obj\a.d)
@@ -1546,7 +1551,7 @@ I (..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_wwdg.h)(0x4EC0F5EC)
 I (..\Libraries\STM32F4xx_StdPeriph_Driver\inc\misc.h)(0x4EC0F5EA)
 I (..\BaseDrive\KEY.h)(0x67518445)
 I (..\BaseDrive\delay.h)(0x59795EDE)
-I (..\BaseDrive\LCD.h)(0x67518955)
+I (..\BaseDrive\LCD.h)(0x676525E3)
 I (..\BaseDrive\sys.h)(0x6477E46A)
 I (D:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x55DB2B78)
 F (..\BaseDrive\mp3.c)(0x674AA90F)(--c99 -c --cpu Cortex-M4.fp -D__MICROLIB -g -O0 --apcs=interwork -I..\Libraries\CMSIS\Device\ST\STM32F4xx\Include -I..\User -I..\Libraries\STM32F4xx_StdPeriph_Driver\inc -I..\BaseDrive -I..\ExternalDrive\lcd -I..\photo-I E:\ZJUT\科目学习资料\单片机课设\智能手机\《基于STM32F407的智能手机系统》\Project\RTE-I D:\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include-I D:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.7.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="517" -D_RTE_ -DSTM32F407xx -DSTM32F4XX -DUSE_STDPERIPH_DRIVER-o .\obj\mp3.o --omf_browse .\obj\mp3.crf --depend .\obj\mp3.d)
@@ -1678,7 +1683,7 @@ I (..\Libraries\STM32F4xx_StdPeriph_Driver\inc\misc.h)(0x4EC0F5EA)
 I (..\BaseDrive\ott2001a.h)(0x627A03EA)
 I (..\BaseDrive\gt9147.h)(0x627A03EA)
 I (..\BaseDrive\ft5206.h)(0x627A03EA)
-I (..\BaseDrive\lcd.h)(0x67518955)
+I (..\BaseDrive\lcd.h)(0x676525E3)
 I (D:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x55DB2B78)
 I (..\BaseDrive\delay.h)(0x59795EDE)
 I (D:\Keil_v5\ARM\ARMCC\include\math.h)(0x55DB2B7E)
@@ -1808,7 +1813,7 @@ I (..\BaseDrive\ctiic.h)(0x674AABFA)
 I (..\BaseDrive\usart3.h)(0x61D64EDE)
 I (..\BaseDrive\delay.h)(0x59795EDE)
 I (D:\Keil_v5\ARM\ARMCC\include\string.h)(0x55DB2B78)
-I (..\BaseDrive\lcd.h)(0x67518955)
+I (..\BaseDrive\lcd.h)(0x676525E3)
 I (D:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x55DB2B78)
 F (..\BaseDrive\myiic.c)(0x5368BC36)(--c99 -c --cpu Cortex-M4.fp -D__MICROLIB -g -O0 --apcs=interwork -I..\Libraries\CMSIS\Device\ST\STM32F4xx\Include -I..\User -I..\Libraries\STM32F4xx_StdPeriph_Driver\inc -I..\BaseDrive -I..\ExternalDrive\lcd -I..\photo-I E:\ZJUT\科目学习资料\单片机课设\智能手机\《基于STM32F407的智能手机系统》\Project\RTE-I D:\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include-I D:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.7.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="517" -D_RTE_ -DSTM32F407xx -DSTM32F4XX -DUSE_STDPERIPH_DRIVER-o .\obj\myiic.o --omf_browse .\obj\myiic.crf --depend .\obj\myiic.d)
 I (..\BaseDrive\myiic.h)(0x627A0350)
@@ -1849,8 +1854,8 @@ I (..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_usart.h)(0x4EC0F5EC)
 I (..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_wwdg.h)(0x4EC0F5EC)
 I (..\Libraries\STM32F4xx_StdPeriph_Driver\inc\misc.h)(0x4EC0F5EA)
 I (..\BaseDrive\delay.h)(0x59795EDE)
-F (..\BaseDrive\lcd.c)(0x67650AC4)(--c99 -c --cpu Cortex-M4.fp -D__MICROLIB -g -O0 --apcs=interwork -I..\Libraries\CMSIS\Device\ST\STM32F4xx\Include -I..\User -I..\Libraries\STM32F4xx_StdPeriph_Driver\inc -I..\BaseDrive -I..\ExternalDrive\lcd -I..\photo-I E:\ZJUT\科目学习资料\单片机课设\智能手机\《基于STM32F407的智能手机系统》\Project\RTE-I D:\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include-I D:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.7.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="517" -D_RTE_ -DSTM32F407xx -DSTM32F4XX -DUSE_STDPERIPH_DRIVER-o .\obj\lcd.o --omf_browse .\obj\lcd.crf --depend .\obj\lcd.d)
-I (..\BaseDrive\lcd.h)(0x67518955)
+F (..\BaseDrive\lcd.c)(0x67652DDA)(--c99 -c --cpu Cortex-M4.fp -D__MICROLIB -g -O0 --apcs=interwork -I..\Libraries\CMSIS\Device\ST\STM32F4xx\Include -I..\User -I..\Libraries\STM32F4xx_StdPeriph_Driver\inc -I..\BaseDrive -I..\ExternalDrive\lcd -I..\photo-I E:\ZJUT\科目学习资料\单片机课设\智能手机\《基于STM32F407的智能手机系统》\Project\RTE-I D:\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include-I D:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.7.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="517" -D_RTE_ -DSTM32F407xx -DSTM32F4XX -DUSE_STDPERIPH_DRIVER-o .\obj\lcd.o --omf_browse .\obj\lcd.crf --depend .\obj\lcd.d)
+I (..\BaseDrive\lcd.h)(0x676525E3)
 I (..\BaseDrive\sys.h)(0x6477E46A)
 I (..\Libraries\CMSIS\Device\ST\STM32F4xx\Include\stm32f4xx.h)(0x4EC0F5E8)
 I (D:\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include\core_cm4.h)(0x5625B70C)
@@ -2304,7 +2309,7 @@ I (..\BaseDrive\delay.h)(0x59795EDE)
 I (..\BaseDrive\bsp_debug_usart.h)(0x658981AC)
 I (..\BaseDrive\rx_data_queue.h)(0x658A7050)
 I (D:\Keil_v5\ARM\ARMCC\include\string.h)(0x55DB2B78)
-I (..\BaseDrive\LCD.h)(0x67518955)
+I (..\BaseDrive\LCD.h)(0x676525E3)
 I (..\BaseDrive\sys.h)(0x6477E46A)
 I (D:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x55DB2B78)
 F (..\BaseDrive\as608_test.c)(0x67518B19)(--c99 -c --cpu Cortex-M4.fp -D__MICROLIB -g -O0 --apcs=interwork -I..\Libraries\CMSIS\Device\ST\STM32F4xx\Include -I..\User -I..\Libraries\STM32F4xx_StdPeriph_Driver\inc -I..\BaseDrive -I..\ExternalDrive\lcd -I..\photo-I E:\ZJUT\科目学习资料\单片机课设\智能手机\《基于STM32F407的智能手机系统》\Project\RTE-I D:\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include-I D:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.7.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="517" -D_RTE_ -DSTM32F407xx -DSTM32F4XX -DUSE_STDPERIPH_DRIVER-o .\obj\as608_test.o --omf_browse .\obj\as608_test.crf --depend .\obj\as608_test.d)
@@ -2350,7 +2355,7 @@ I (..\BaseDrive\delay.h)(0x59795EDE)
 I (..\BaseDrive\bsp_debug_usart.h)(0x658981AC)
 I (..\BaseDrive\rx_data_queue.h)(0x658A7050)
 I (D:\Keil_v5\ARM\ARMCC\include\string.h)(0x55DB2B78)
-I (..\BaseDrive\LCD.h)(0x67518955)
+I (..\BaseDrive\LCD.h)(0x676525E3)
 I (..\BaseDrive\sys.h)(0x6477E46A)
 I (D:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x55DB2B78)
 I (..\BaseDrive\touch.h)(0x627A03EA)
@@ -2399,7 +2404,7 @@ I (..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_usart.h)(0x4EC0F5EC)
 I (..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_wwdg.h)(0x4EC0F5EC)
 I (..\Libraries\STM32F4xx_StdPeriph_Driver\inc\misc.h)(0x4EC0F5EA)
 I (..\BaseDrive\led.h)(0x6593BDD8)
-I (..\BaseDrive\LCD.h)(0x67518955)
+I (..\BaseDrive\LCD.h)(0x676525E3)
 I (..\BaseDrive\sys.h)(0x6477E46A)
 I (D:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x55DB2B78)
 F (..\BaseDrive\spi.c)(0x61C2DE14)(--c99 -c --cpu Cortex-M4.fp -D__MICROLIB -g -O0 --apcs=interwork -I..\Libraries\CMSIS\Device\ST\STM32F4xx\Include -I..\User -I..\Libraries\STM32F4xx_StdPeriph_Driver\inc -I..\BaseDrive -I..\ExternalDrive\lcd -I..\photo-I E:\ZJUT\科目学习资料\单片机课设\智能手机\《基于STM32F407的智能手机系统》\Project\RTE-I D:\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include-I D:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.7.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="517" -D_RTE_ -DSTM32F407xx -DSTM32F4XX -DUSE_STDPERIPH_DRIVER-o .\obj\spi.o --omf_browse .\obj\spi.crf --depend .\obj\spi.d)
