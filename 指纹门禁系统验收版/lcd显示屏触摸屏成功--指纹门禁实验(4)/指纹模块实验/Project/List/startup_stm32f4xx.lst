@@ -849,13 +849,13 @@ erwork --depend=.\obj\startup_stm32f4xx.d -o.\obj\startup_stm32f4xx.o -IE:\ZJUT
 ARM Macro Assembler    Page 14 
 
 
-\¿ÆÄ¿Ñ§Ï°×ÊÁÏ\µ¥Æ¬»ú¿ÎÉè\Ö¸ÎÆÃÅ½ûÏµÍ³ÑéÊÕ°æ\lcdÏÔÊ¾ÆÁ´¥ÃşÆÁ³É¹¦--Ö¸ÎÆÃÅ½ûÊµÑé(4
-)\Ö¸ÎÆÄ£¿éÊµÑé\Project\RTE -ID:\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include 
--ID:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.7.0\Drivers\CMSIS\Device\ST\STM32F4x
-x\Include --predefine="__MICROLIB SETA 1" --predefine="__UVISION_VERSION SETA 5
-17" --predefine="_RTE_ SETA 1" --predefine="STM32F407xx SETA 1" --list=.\list\s
-tartup_stm32f4xx.lst ..\Libraries\CMSIS\Device\ST\STM32F4xx\Source\Templates\ar
-m\startup_stm32f4xx.s
+\¿ÆÄ¿Ñ§Ï°×ÊÁÏ\µ¥Æ¬»ú¿ÎÉè\ÖÇÄÜÊÖ»ú\Ö¸ÎÆÃÅ½ûÏµÍ³ÑéÊÕ°æ\lcdÏÔÊ¾ÆÁ´¥ÃşÆÁ³É¹¦--Ö¸ÎÆÃ
+Å½ûÊµÑé(4)\Ö¸ÎÆÄ£¿éÊµÑé\Project\RTE -ID:\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS
+\Include -ID:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.7.0\Drivers\CMSIS\Device\ST
+\STM32F4xx\Include --predefine="__MICROLIB SETA 1" --predefine="__UVISION_VERSI
+ON SETA 517" --predefine="_RTE_ SETA 1" --predefine="STM32F407xx SETA 1" --list
+=.\list\startup_stm32f4xx.lst ..\Libraries\CMSIS\Device\ST\STM32F4xx\Source\Tem
+plates\arm\startup_stm32f4xx.s
 
 
 

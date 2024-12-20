@@ -1041,25 +1041,25 @@ void LCD_Fill(u16 sx, u16 sy, u16 ex, u16 ey, u16 color)
 //输出参数：无
 //函数返回：无
 //**********************************************************************************************************/
-//void LCD_Color_Fill(u16 sx, u16 sy, u16 ex, u16 ey, u16 *color)
-//{
-//    u16 height, width;
-//    u16 i, j;
-//	
-//    width = ex - sx + 1; 												//	得到填充的宽度
-//    height = ey - sy + 1;												//	高度
-//	
-//    for(i = 0; i < height; i++)
-//    {
-//        LCD_SetCursor(sx, sy + i);   									//	设置光标位置
-//        LCD_WriteRAM_Prepare();     									//	开始写入GRAM
-//		
-//        for(j = 0; j < width; j++)
-//        {
-//            LCD->LCD_RAM = color[i * width + j]; 						//	写入数据
-//        }
-//    }
-//}
+void LCD_Color_Fill(u16 sx, u16 sy, u16 ex, u16 ey, u16 *color)
+{
+   u16 height, width;
+   u16 i, j;
+	
+   width = ex - sx + 1; 												//	得到填充的宽度
+   height = ey - sy + 1;												//	高度
+	
+   for(i = 0; i < height; i++)
+   {
+       LCD_SetCursor(sx, sy + i);   									//	设置光标位置
+       LCD_WriteRAM_Prepare();     									//	开始写入GRAM
+		
+       for(j = 0; j < width; j++)
+       {
+           LCD->LCD_RAM = color[i * width + j]; 						//	写入数据
+       }
+   }
+}
 
 
 /**********************************************************************************************************
@@ -1503,7 +1503,6 @@ void gui_fill_circle(u16 x0, u16 y0, u16 r, u16 color)
         gui_draw_hline(x0 - x, y0 - i, 2 * x, color);
     }
 }
-
 
 
 

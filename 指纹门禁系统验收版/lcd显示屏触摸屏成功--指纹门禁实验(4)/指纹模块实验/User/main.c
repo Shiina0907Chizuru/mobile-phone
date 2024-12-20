@@ -34,6 +34,9 @@ int main(void)
 	KEYGpio_Init();
   W25QXX_Init();
 	UART3_Configuration();
+  lv_init();                             // LVGL 初始化
+  lv_port_disp_init();                   // 注册LVGL的显示任务
+  lv_port_indev_init();                  // 注册LVGL的触屏检测任务
   volatile unsigned short temp = 0; 
   temp = W25QXX_ReadID();
   printf("SPI test\r\n");
@@ -81,7 +84,6 @@ int main(void)
     
 
 }
-
 
 
 
