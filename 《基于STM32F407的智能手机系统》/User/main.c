@@ -3,7 +3,7 @@
 ** Created by:          qinyx
 ** Last modified Date:  2014-02-28
 ** Last Version:        V1.00
-** Descriptions:        STM32F407Ç¶ÈëÊ½ÊµÑéÏä
+** Descriptions:        STM32F407Ç¶ï¿½ï¿½Ê½Êµï¿½ï¿½ï¿½ï¿½
 **-------------------------------------------------------------------------------------------*/
 //********************************************************************************************/
 #include "stm32f4xx.h"
@@ -28,6 +28,9 @@
 #include "StepMotor.h"
 #include "PWM.h"
 #include "DCMotor.h"
+#include "rx_data_queue.h"
+#include "bsp_as608.h"
+#include "as608_test.h"
 #include "CH455I2C.H"
 #include "I2C.h"
 #include "stm32f4xx_it.h"
@@ -35,21 +38,23 @@ int main(void)
 {
 	int enter=0;
     // float t       emp;
-    SysTick_Init();		//ÑÓÊ±³õÊ¼»¯
+    SysTick_Init();		//ï¿½ï¿½Ê±ï¿½ï¿½Ê¼ï¿½ï¿½
     LEDGpio_Init();			
     BEEPGpio_Init();
     KEYGpio_Init();  	
-	  LCD_Init();			//LCD³õÊ¼»¯
+	  LCD_Init();			//LCDï¿½ï¿½Ê¼ï¿½ï¿½
 	  Adc_Init();
+	//  rx_queue_init();
+		AS608_Config();
 	  UART3_Configuration();   
-	  UART5_Configuration(9600);  
+	//   UART5_Configuration(9600);  
     UART6_Configuration(9600);  
 	  setMp3Dev(FLASH0);                                                  
     delay_ms(200); DCMotorGpio_Init();
 	 // setMp3Vol(15);
 //    TIM2_Configuration();
-//	  EXTI_Config();  //  ÅäÖÃÍâ²¿ÖÐ¶Ï0
-    tp_dev.init();				//´¥ÃþÆÁ³õÊ¼»¯
+//	  EXTI_Config();  //  ï¿½ï¿½ï¿½ï¿½ï¿½â²¿ï¿½Ð¶ï¿½0
+    tp_dev.init();				//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½
 
    POINT_COLOR = BLUE;          
    enter=In();

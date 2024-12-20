@@ -2170,91 +2170,91 @@ void menuset()
 				LCD_DrawPicture(250, 400, 400, 550, (u8*)gImage_laba);	  		
 	      LCD_ShowStringMy(310,560,200,24,24,"MP3");
 				
-				LCD_DrawPicture(60, 590, 210, 740, (u8*)gImage_light);	  		
-	      LCD_ShowStringMy(110,750,200,24,24,"Light");
+				// LCD_DrawPicture(60, 590, 210, 740, (u8*)gImage_light);	  		
+	      // LCD_ShowStringMy(110,750,200,24,24,"Light");
 	
-				LCD_DrawPicture(250, 590, 400, 740, (u8*)gImage_motor);	  		
-	      LCD_ShowStringMy(310,750,200,24,24,"Motor");
+				// LCD_DrawPicture(250, 590, 400, 740, (u8*)gImage_motor);	  		
+	      // LCD_ShowStringMy(310,750,200,24,24,"Motor");
 	
 	
 }
-void Light()
-{
-	u8 tempLIGHT=0;
-  LCD_Clear(WHITE);
-	LCD_DrawPicture(0, 0, 100, 100, (u8*)gImage_back);
-  gui_fill_circle(240,400,150,BLACK);
-	          while(1)
-								{
+// void Light()
+// {
+// 	u8 tempLIGHT=0;
+//   LCD_Clear(WHITE);
+// 	LCD_DrawPicture(0, 0, 100, 100, (u8*)gImage_back);
+//   gui_fill_circle(240,400,150,BLACK);
+// 	          while(1)
+// 								{
 									
-								tempLIGHT = KeyScan();
-								if(tempLIGHT == 1)
-								{
-								gui_fill_circle(240,400,150,RED);
-								LED1_ON;
-	              delay_ms(500);
-								LED1_OFF;
-								LED2_ON;
-								delay_ms(500);
-								LED2_OFF;
-                LED3_ON;
-                delay_ms(500);
-                LED3_OFF;
-                LED4_ON;
-                delay_ms(500);
-                LED4_OFF;
-                LED5_ON;
-                delay_ms(500);
-                LED5_OFF;
-                LED6_ON;
-                delay_ms(500);
-                LED6_OFF;
-                LED7_ON;
-                delay_ms(500);
-                LED7_OFF;
-                LED8_ON;
-                delay_ms(500);
-                LED8_OFF;
+// 								tempLIGHT = KeyScan();
+// 								if(tempLIGHT == 1)
+// 								{
+// 								gui_fill_circle(240,400,150,RED);
+// 								LED1_ON;
+// 	              delay_ms(500);
+// 								LED1_OFF;
+// 								LED2_ON;
+// 								delay_ms(500);
+// 								LED2_OFF;
+//                 LED3_ON;
+//                 delay_ms(500);
+//                 LED3_OFF;
+//                 LED4_ON;
+//                 delay_ms(500);
+//                 LED4_OFF;
+//                 LED5_ON;
+//                 delay_ms(500);
+//                 LED5_OFF;
+//                 LED6_ON;
+//                 delay_ms(500);
+//                 LED6_OFF;
+//                 LED7_ON;
+//                 delay_ms(500);
+//                 LED7_OFF;
+//                 LED8_ON;
+//                 delay_ms(500);
+//                 LED8_OFF;
                 
-                  LED1_ON;
-                  LED2_ON;
-                  LED3_ON;
-                  LED4_ON;
-                  LED5_ON;
-                  LED6_ON;
-                  LED7_ON;
-                  LED8_ON;
-								}
-								else if(tempLIGHT == 2)
-								{
-								  gui_fill_circle(240,400,150,GREEN); 
-                  LED1_OFF;
-                  LED2_OFF;
-                  LED3_OFF;
-                  LED4_OFF;
-                  LED5_OFF;
-                  LED6_OFF;
-                  LED7_OFF;
-                  LED8_OFF;
-								}
-								else if(tempLIGHT == 3)
-								{
-								 break;
-								}
-								}
-								while(1)
-								{
-									Exit();
-								  if(exit_flag == 1)
-                    {
-                        light_flag = 0;
-											  LCD_Clear(WHITE);
-											 // BEEP_ON;
-                        break; 
-                    }
-								}
+//                   LED1_ON;
+//                   LED2_ON;
+//                   LED3_ON;
+//                   LED4_ON;
+//                   LED5_ON;
+//                   LED6_ON;
+//                   LED7_ON;
+//                   LED8_ON;
+// 								}
+// 								else if(tempLIGHT == 2)
+// 								{
+// 								  gui_fill_circle(240,400,150,GREEN); 
+//                   LED1_OFF;
+//                   LED2_OFF;
+//                   LED3_OFF;
+//                   LED4_OFF;
+//                   LED5_OFF;
+//                   LED6_OFF;
+//                   LED7_OFF;
+//                   LED8_OFF;
+// 								}
+// 								else if(tempLIGHT == 3)
+// 								{
+// 								 break;
+// 								}
+// 								}
+// 								while(1)
+// 								{
+// 									Exit();
+// 								  if(exit_flag == 1)
+//                     {
+//                         light_flag = 0;
+// 											  LCD_Clear(WHITE);
+// 											 // BEEP_ON;
+//                         break; 
+//                     }
+// 								}
 
-}
+// }
 void photo()
 {
                 u8 tempKEY=0;
@@ -2730,87 +2730,87 @@ while(1)
       }
 		}
 }
-void motor()
-{
-	u8 t=0;
-	unsigned int data = 0;
-  char dispbuf[100] = "";
-//StepMotorGpio_Init(); 	
-  LCD_Clear(WHITE);	
+// void motor()
+// {
+// 	u8 t=0;
+// 	unsigned int data = 0;
+//   char dispbuf[100] = "";
+// //StepMotorGpio_Init(); 	
+//   LCD_Clear(WHITE);	
 	
-	LCD_DrawPicture(0, 0, 100, 100, (u8*)gImage_back);
-	LCD_ShowStringMy(150, 50, 200,24,24,"Motor Imitate");
-	LCD_ShowStringMy(100, 200,200,24,24, "Duty Cycle:0");
-// while(1)
-//	{
-//        temp = KeyScan();
-//		//步进电机
-//        //  S1正转
-////        if (temp == 1)
-////        {
-////					  LCD_ShowString2(200, 200, "正转",BLACK, WHITE);
-////            StepMotorTest(0);
-////            
-////        }
-////        //  S2反转
-////        else if (temp == 2)
-////        {
-////					  LCD_ShowString2(200, 200, "反转",BLACK, WHITE);
-////            StepMotorTest(1);  
-////        }
-//		//直流电机
-//		
-//	} 
-	while(1)
-	{
-        t = KeyScan();           //  扫描按键
-        if (t == 1)              //  按键S2
-        {
-            data += 200;
-            if(data > 1000)
-            {
-                data = 1000;
-            }
+// 	LCD_DrawPicture(0, 0, 100, 100, (u8*)gImage_back);
+// 	LCD_ShowStringMy(150, 50, 200,24,24,"Motor Imitate");
+// 	LCD_ShowStringMy(100, 200,200,24,24, "Duty Cycle:0");
+// // while(1)
+// //	{
+// //        temp = KeyScan();
+// //		//步进电机
+// //        //  S1正转
+// ////        if (temp == 1)
+// ////        {
+// ////					  LCD_ShowString2(200, 200, "正转",BLACK, WHITE);
+// ////            StepMotorTest(0);
+// ////            
+// ////        }
+// ////        //  S2反转
+// ////        else if (temp == 2)
+// ////        {
+// ////					  LCD_ShowString2(200, 200, "反转",BLACK, WHITE);
+// ////            StepMotorTest(1);  
+// ////        }
+// //		//直流电机
+// //		
+// //	} 
+// 	while(1)
+// 	{
+//         t = KeyScan();           //  扫描按键
+//         if (t == 1)              //  按键S2
+//         {
+//             data += 200;
+//             if(data > 1000)
+//             {
+//                 data = 1000;
+//             }
             
-            TIM_SetCompare1(TIM10, data);       //  占空比增加
-            sprintf(dispbuf, "Duty Cycle:%-5d", data);  //  显示高电平数值
-//            LCD_ShowString2(200, 200, (u8*)dispbuf,BLACK, WHITE);
-						LCD_ShowStringMy(100, 200,200,24,24, (u8*)dispbuf);
-        }
-				else if(t == 2)         
-        {
-            if(data!=0)    
-            {
-                data -= 200;
-                if(data < 100)
-                {
-                    data = 0;
-                }
-            }
-            TIM_SetCompare1(TIM10, data);          
-            sprintf(dispbuf, "Duty Cycle:%-5d", data);  
-            LCD_ShowStringMy(100, 200,200,24,24, (u8*)dispbuf);
-        }
-				else if(t == 3) 
-				{
-				TIM_SetCompare1(TIM10, 0);
-				LCD_ShowStringMy(100, 200,200,24,24, "Duty Cycle:0");
-				break;
-				}
+//             TIM_SetCompare1(TIM10, data);       //  占空比增加
+//             sprintf(dispbuf, "Duty Cycle:%-5d", data);  //  显示高电平数值
+// //            LCD_ShowString2(200, 200, (u8*)dispbuf,BLACK, WHITE);
+// 						LCD_ShowStringMy(100, 200,200,24,24, (u8*)dispbuf);
+//         }
+// 				else if(t == 2)         
+//         {
+//             if(data!=0)    
+//             {
+//                 data -= 200;
+//                 if(data < 100)
+//                 {
+//                     data = 0;
+//                 }
+//             }
+//             TIM_SetCompare1(TIM10, data);          
+//             sprintf(dispbuf, "Duty Cycle:%-5d", data);  
+//             LCD_ShowStringMy(100, 200,200,24,24, (u8*)dispbuf);
+//         }
+// 				else if(t == 3) 
+// 				{
+// 				TIM_SetCompare1(TIM10, 0);
+// 				LCD_ShowStringMy(100, 200,200,24,24, "Duty Cycle:0");
+// 				break;
+// 				}
 
-    }
-	while(1)
-		{
-			Exit();
-			if(exit_flag == 1)
-      {
-      motor_flag = 0;
-			LCD_Clear(WHITE);
-			// BEEP_ON;
-      break; 
-      }
-		}
-}
+//     }
+// 	while(1)
+// 		{
+// 			Exit();
+// 			if(exit_flag == 1)
+//       {
+//       motor_flag = 0;
+// 			LCD_Clear(WHITE);
+// 			// BEEP_ON;
+//       break; 
+//       }
+// 		}
+// }
 void closeforphone()    //锁屏界面的设计
 {
 	  
@@ -3123,12 +3123,12 @@ void apps()
                     f[0] = 1;
 									  photo_flag=1;
                 }
-								if(tp_dev.x[t]>60&&tp_dev.x[t]<210&&tp_dev.y[t]>590&&tp_dev.y[t]<740&&f[1]==0)  //light
-                {
-									  f[1] = 1;
-                    light_flag=1;
+								// if(tp_dev.x[t]>60&&tp_dev.x[t]<210&&tp_dev.y[t]>590&&tp_dev.y[t]<740&&f[1]==0)  //light
+                // {
+								// 	  f[1] = 1;
+                //     light_flag=1;
 									
-                }
+                // }
 								if(tp_dev.x[t]>60&&tp_dev.x[t]<210&&tp_dev.y[t]>210&&tp_dev.y[t]<360&&f[2]==0)  //gps
                 {
                     f[2] = 1;
@@ -3147,12 +3147,12 @@ void apps()
 									  temwet_flag=1;
 									
                 }
-								if(tp_dev.x[t]>250&&tp_dev.x[t]<400&&tp_dev.y[t]>590&&tp_dev.y[t]<740&&f[5]==0)  //gps
-                {
-                    f[5] = 1;
-									  motor_flag=1;
+								// if(tp_dev.x[t]>250&&tp_dev.x[t]<400&&tp_dev.y[t]>590&&tp_dev.y[t]<740&&f[5]==0)  //gps
+                // {
+                //     f[5] = 1;
+								// 	  motor_flag=1;
 									
-                }
+                // }
 								if(tp_dev.x[t]>250&&tp_dev.x[t]<400&&tp_dev.y[t]>210&&tp_dev.y[t]<360&&f[6]==0)  //gps
                 {
                     f[6] = 1;
@@ -3217,10 +3217,10 @@ void apps()
 								{
                    photo();
 								}
-								else if(light_flag)
-                {
-									Light();
-								}
+								// else if(light_flag)
+                // {
+								// 	Light();
+								// }
 								else if(gps_flag)
                 {
 									Gps();
@@ -3233,10 +3233,10 @@ void apps()
                 {
 									tandw();
 								}
-								else if(motor_flag)
-                {
-									motor();
-								}
+								// else if(motor_flag)
+                // {
+								// 	motor();
+								// }
 								else if(phone_flag)
                 {
 									phone();

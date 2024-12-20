@@ -59,6 +59,10 @@
 .\obj\main.o: ..\BaseDrive\StepMotor.h
 .\obj\main.o: ..\User\PWM.h
 .\obj\main.o: ..\BaseDrive\DCMotor.h
+.\obj\main.o: ..\BaseDrive\rx_data_queue.h
+.\obj\main.o: ..\BaseDrive\bsp_as608.h
+.\obj\main.o: ..\BaseDrive\bsp_debug_usart.h
+.\obj\main.o: ..\BaseDrive\as608_test.h
 .\obj\main.o: ..\User\CH455I2C.H
 .\obj\main.o: ..\User\I2C.h
 .\obj\main.o: ..\User\stm32f4xx_it.h

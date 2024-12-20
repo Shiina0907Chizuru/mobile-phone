@@ -363,7 +363,7 @@
             <wLevel>0</wLevel>
             <uThumb>0</uThumb>
             <uSurpInc>0</uSurpInc>
-            <uC99>0</uC99>
+            <uC99>1</uC99>
             <useXO>0</useXO>
             <v6Lang>0</v6Lang>
             <v6LangP>0</v6LangP>
@@ -790,6 +790,36 @@
               <FileName>DCMotor.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\BaseDrive\DCMotor.c</FilePath>
+            </File>
+            <File>
+              <FileName>rx_data_queue.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\BaseDrive\rx_data_queue.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_debug_usart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\BaseDrive\bsp_debug_usart.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_as608.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\BaseDrive\bsp_as608.c</FilePath>
+            </File>
+            <File>
+              <FileName>as608_test.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\BaseDrive\as608_test.c</FilePath>
+            </File>
+            <File>
+              <FileName>w25qxx.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\BaseDrive\w25qxx.c</FilePath>
+            </File>
+            <File>
+              <FileName>spi.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\BaseDrive\spi.c</FilePath>
             </File>
           </Files>
         </Group>
