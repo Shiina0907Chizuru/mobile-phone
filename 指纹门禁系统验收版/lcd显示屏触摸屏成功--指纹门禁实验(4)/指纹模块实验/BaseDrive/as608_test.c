@@ -516,11 +516,11 @@ void  FR_Task(void)
 					create_password_lock_screen();
                     	
 					flag5=0;					
-					
 				}   
                 if(passflag==1){
                     OpenDoor(30);
                     mode=1,flag1=0;	//退回主界面
+                    passflag=0;
                 }
                 
 				break;
@@ -808,7 +808,7 @@ void  Add_FR(void)
          do
          { 
              LCD_Clear(WHITE);
-            LCD_ShowString(100,280, (u8 *)"***命令：请输入存储ID，范围为0~239***",BLACK,WHITE);
+            LCD_ShowString(100,280, (u8 *)"***命令:请输入存储ID,范围为0~239***",BLACK,WHITE);
             delay_ms(2000);
 //           AS608_INFO ("\r\n");
         
@@ -872,7 +872,7 @@ void Compare_FR(void)
       {
         sprintf(IDS,"%d",ID);
         LCD_Clear(WHITE);
-        LCD_ShowString(100,280, (u8 *)"对比指纹成功，指纹ID：",BLACK,WHITE); 
+        LCD_ShowString(100,280, (u8 *)"对比指纹成功,指纹ID:",BLACK,WHITE); 
         LCD_ShowString(300,280, (u8 *)IDS,BLACK,WHITE);
         flag00=1;
         delay_ms(2000);
@@ -940,7 +940,7 @@ void Del_FR(void)
 	do
 	{ 
 		LCD_Clear(WHITE);
-        LCD_ShowString(100,280, (u8 *)"***命令：请输入存储ID，范围为0~239***",BLACK,WHITE);
+        LCD_ShowString(100,280, (u8 *)"***命令:请输入存储ID,范围为0~239***",BLACK,WHITE);
 //        AS608_INFO ("***命令：请输入存储ID，范围为0~239***\r\n");
         delay_ms(2000);
 		ID=GET_NUM();
