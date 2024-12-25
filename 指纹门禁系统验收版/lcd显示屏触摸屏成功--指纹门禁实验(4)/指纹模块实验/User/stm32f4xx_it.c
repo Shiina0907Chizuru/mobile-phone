@@ -35,6 +35,7 @@
 #include "LED.h"
 #include "bsp_as608.h"
 #include "mp3.h" 
+#include "../lvgl/src/hal/lv_hal_tick.h"
 extern u8 num_a;
 extern u8 PWMflag;
 extern u8 flag;
@@ -150,7 +151,7 @@ void PendSV_Handler(void)
 void SysTick_Handler(void)
 {     
 	static unsigned int cnt = 0;
-
+  lv_tick_inc(1);
 	cnt++;
 	if (cnt >= 1000)
 	{
@@ -158,15 +159,15 @@ void SysTick_Handler(void)
 		LED1_REVERSE;
         flag = 1;
 	}
-  if(PWMflag==1){
-		TIM_SetCompare1(TIM1, 90);
-    PWMcnt++;
-    if(PWMcnt>opendoortime){
-      PWMflag=0;
-      PWMcnt=0;
-      TIM_SetCompare1(TIM1, 30);
-    }
-  }
+  // if(PWMflag==1){
+	// 	TIM_SetCompare1(TIM1, 90);
+  //   PWMcnt++;
+  //   if(PWMcnt>opendoortime){
+  //     PWMflag=0;
+  //     PWMcnt=0;
+  //     TIM_SetCompare1(TIM1, 30);
+  //   }
+  // }
     TimingDelay_Decrement();
   //USART2串口接收	
 	if (0 != Uart3.Time)
@@ -178,6 +179,12 @@ void SysTick_Handler(void)
 			Uart3.ReceiveFinish = 1;
 		}
 	}
+  static uint8_t msLVGL = 0;   // 用于控制LVGL任务的执行频率 = 0;  
+        if (msLVGL++ == 3) 
+        {
+            lv_timer_handler(); // LVGL任务
+            msLVGL = 0;
+        }
     
 }
 

@@ -1,0 +1,12 @@
+{
+    "files.associations": {
+        "mp3.h": "c",
+        "lv_port_indev.h": "c",
+        "lv_port_disp.h": "c",
+        "lvgl.h": "c",
+        "lv_hal_tick.h": "c",
+        "lv_timer.h": "c",
+        "lv_hal_disp.h": "c",
+        "led.h": "c"
+    }
+}

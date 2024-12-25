@@ -603,161 +603,161 @@ void  ShowErrMessage( uint16_t  ensure)
 	{
     case  0x00:
         LCD_Clear(WHITE);
-        LCD_ShowString(100,280, (u8 *)"OK",BLACK,WHITE);
+        LCD_ShowString(200,280, (u8 *)"OK",BLACK,WHITE);
         delay_ms(2000);
 //			AS608_INFO("OK\r\n");
 		break;
 		
 	  case  0x01:
           LCD_Clear(WHITE);
-        LCD_ShowString(100,280, (u8 *)"数据包接收错误",BLACK,WHITE);
+        LCD_ShowString(200,280, (u8 *)"数据包接收错误",BLACK,WHITE);
       delay_ms(2000);
 //			AS608_INFO("数据包接收错误\r\n");
 		break;
 		
 	  case  0x02:
         LCD_Clear(WHITE);
-        LCD_ShowString(100,280, (u8 *)"指纹模块没有检测到指纹！",BLACK,WHITE); 
+        LCD_ShowString(200,280, (u8 *)"指纹模块没有检测到指纹！",BLACK,WHITE); 
       delay_ms(2000);
 //	    AS608_INFO("指纹模块没有检测到指纹！\r\n");
 		break;
 		
 	  case  0x03:
           LCD_Clear(WHITE);
-        LCD_ShowString(100,280, (u8 *)"录入指纹图像失败",BLACK,WHITE);
+        LCD_ShowString(200,280, (u8 *)"录入指纹图像失败",BLACK,WHITE);
       delay_ms(2000);
 //	    AS608_INFO("\r\n\r\n");
 		break;
 		
 	  case  0x04:
           LCD_Clear(WHITE);
-        LCD_ShowString(100,280, (u8 *)"指纹图像太干、太淡而生不成特征",BLACK,WHITE);
+        LCD_ShowString(200,280, (u8 *)"指纹图像太干、太淡而生不成特征",BLACK,WHITE);
       delay_ms(2000);
 //	    AS608_INFO("\r\n\r\n");
 		break;
 	  
 		case  0x05:
             LCD_Clear(WHITE);
-        LCD_ShowString(100,280, (u8 *)"指纹图像太湿、太糊而生不成特征",BLACK,WHITE);
+        LCD_ShowString(200,280, (u8 *)"指纹图像太湿、太糊而生不成特征",BLACK,WHITE);
         delay_ms(2000);
 //	    AS608_INFO("\r\n\r\n");
 		break;
 		
 	  case  0x06:
           LCD_Clear(WHITE);
-        LCD_ShowString(100,280, (u8 *)"指纹图像太乱而生不成特征",BLACK,WHITE);
+        LCD_ShowString(200,280, (u8 *)"指纹图像太乱而生不成特征",BLACK,WHITE);
       delay_ms(2000);
 //	    AS608_INFO("\r\n\r\n");
 		break;
 		
 	  case  0x07:
           LCD_Clear(WHITE);
-        LCD_ShowString(100,280, (u8 *)"指纹图像正常，但特征点太少（或面积太小）而生不成特征",BLACK,WHITE);
+        LCD_ShowString(200,280, (u8 *)"指纹图像正常，但特征点太少（或面积太小）而生不成特征",BLACK,WHITE);
       delay_ms(2000);
 //	    AS608_INFO("\r\n");
 		break;
 		
 	  case  0x08:
           LCD_Clear(WHITE);
-        LCD_ShowString(100,280, (u8 *)"指纹不匹配",BLACK,WHITE);
+        LCD_ShowString(200,280, (u8 *)"指纹不匹配",BLACK,WHITE);
       delay_ms(2000);
 //	    AS608_INFO("\r\n\r\n");
 		break;
 		
 	  case  0x09:
           LCD_Clear(WHITE);
-        LCD_ShowString(100,280, (u8 *)"对比指纹失败，指纹库不存在此指纹！",BLACK,WHITE);
+        LCD_ShowString(200,280, (u8 *)"对比指纹失败，指纹库不存在此指纹<|pad|>",BLACK,WHITE);
       delay_ms(2000);
 //      AS608_INFO("\r\n\r\n");
 		break;
 		
 		case  0x0a:
             LCD_Clear(WHITE);
-        LCD_ShowString(100,280, (u8 *)"特征合并失败",BLACK,WHITE);
+        LCD_ShowString(200,280, (u8 *)"特征合并失败",BLACK,WHITE);
         delay_ms(2000);
 //	    AS608_INFO("\r\n");
 		break;
 		
 		case  0x0b:
             LCD_Clear(WHITE);
-        LCD_ShowString(100,280, (u8 *)"访问指纹库时地址序号超出指纹库范围",BLACK,WHITE);
+        LCD_ShowString(200,280, (u8 *)"访问指纹库时地址序号超出指纹库范围",BLACK,WHITE);
         delay_ms(2000);
 //      AS608_INFO("\r\n");
 		break;
 		
 		case  0x10:
             LCD_Clear(WHITE);
-        LCD_ShowString(100,280, (u8 *)"删除模板失败",BLACK,WHITE);
+        LCD_ShowString(200,280, (u8 *)"删除模板失败",BLACK,WHITE);
         delay_ms(2000);
 //	    AS608_INFO("\r\n");
 		break;
 		
 		case  0x11:
             LCD_Clear(WHITE);
-        LCD_ShowString(100,280, (u8 *)"清空指纹库失败",BLACK,WHITE);
+        LCD_ShowString(200,280, (u8 *)"清空指纹库失败",BLACK,WHITE);
         delay_ms(2000);
 //      AS608_INFO("\r\n");
 		break;	
 		
 		case  0x15:
             LCD_Clear(WHITE);
-        LCD_ShowString(100,280, (u8 *)"缓冲区内没有有效原始图而生不成图像",BLACK,WHITE);
+        LCD_ShowString(200,280, (u8 *)"缓冲区内没有有效原始图而生不成图像",BLACK,WHITE);
         delay_ms(2000);
 //		  AS608_INFO("\r\n");
 		break;
 		
 		case  0x18:
             LCD_Clear(WHITE);
-        LCD_ShowString(100,280, (u8 *)"读写 FLASH 出错",BLACK,WHITE);
+        LCD_ShowString(200,280, (u8 *)"读写 FLASH 出错",BLACK,WHITE);
         delay_ms(2000);
 //		  AS608_INFO("\r\n");
 		break;
 		
 		case  0x19:
             LCD_Clear(WHITE);
-        LCD_ShowString(100,280, (u8 *)"未定义错误",BLACK,WHITE);
+        LCD_ShowString(200,280, (u8 *)"未定义错误",BLACK,WHITE);
         delay_ms(2000);
 //	    AS608_INFO("\r\n");
 		break;
 		
 		case  0x1a:
             LCD_Clear(WHITE);
-        LCD_ShowString(100,280, (u8 *)"无效寄存器号",BLACK,WHITE);
+        LCD_ShowString(200,280, (u8 *)"无效寄存器号",BLACK,WHITE);
         delay_ms(2000);
 //	    AS608_INFO("\r\n");
 		break;
 		
 		case  0x1b:
             LCD_Clear(WHITE);
-        LCD_ShowString(100,280, (u8 *)"寄存器设定内容错误",BLACK,WHITE);
+        LCD_ShowString(200,280, (u8 *)"寄存器设定内容错误",BLACK,WHITE);
         delay_ms(2000);
 //			AS608_INFO("\r\n");
 		break;
 		
 		case  0x1c:
             LCD_Clear(WHITE);
-        LCD_ShowString(100,280, (u8 *)"记事本页码指定错误",BLACK,WHITE);
+        LCD_ShowString(200,280, (u8 *)"记事本页码指定错误",BLACK,WHITE);
         delay_ms(2000);
 //		  AS608_INFO("\r\n");
 		break;
 		
 		case  0x1f:
             LCD_Clear(WHITE);
-        LCD_ShowString(100,280, (u8 *)"指纹库满",BLACK,WHITE);
+        LCD_ShowString(200,280, (u8 *)"指纹库满",BLACK,WHITE);
         delay_ms(2000);
 //      AS608_INFO("\r\n");
 		break;
 		
 		case  0x20:
             LCD_Clear(WHITE);
-        LCD_ShowString(100,280, (u8 *)"地址错误",BLACK,WHITE);
+        LCD_ShowString(200,280, (u8 *)"地址错误",BLACK,WHITE);
         delay_ms(2000);
 //      AS608_INFO("\r\n");
 		break;
 		
 		default :
             LCD_Clear(WHITE);
-        LCD_ShowString(100,280, (u8 *)"模块返回确认码有误",BLACK,WHITE);
+        LCD_ShowString(200,280, (u8 *)"模块返回确认码有误",BLACK,WHITE);
         delay_ms(2000);
 //      AS608_INFO("\r\n");
 		break;	

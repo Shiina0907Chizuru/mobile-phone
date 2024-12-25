@@ -22,8 +22,13 @@
 #include "touch.h"
 #include "KEY.h"
 #include "delay.h"
+#include "lvgl.h"
+#include "lv_port_disp.h"
+#include "lv_port_indev.h"
+#include "LED.h"
 
 
+static uint16_t passflag=0;
 extern uint8_t TouchOut_int_flag;
 extern u8 num_a;
 unsigned char mode=1;					//定义界面标志位，主界面
@@ -38,72 +43,391 @@ void key_scan(void);//按键输入管理员密码
 unsigned char pipei(void);//管理员密码匹配
 void code_lock(void);//密码锁
 /****************************************************************************************************/
+static void btn_light_event_cb(lv_event_t * e)
+{
+    if(lv_event_get_code(e) == LV_EVENT_CLICKED)
+    {
+        // 调用“开关灯”函数
+        LED6_REVERSE;
+    }
+}
 void zhujiemian(void)	//欢迎界面显示
 {
 	LCD_Clear(WHITE);
-    LCD_ShowString(200,280, (u8 *)"指纹门禁系统",BLACK,WHITE);
-    LCD_ShowString(180,380, (u8 *)"1.解锁",BLACK,WHITE);
-    LCD_ShowString(280,380, (u8 *)"3.设置",BLACK,WHITE);	
+    // LCD_ShowString(200,280, (u8 *)"指纹门禁系统",BLACK,WHITE);
+    // LCD_ShowString(180,380, (u8 *)"1.解锁",BLACK,WHITE);
+    // LCD_ShowString(280,380, (u8 *)"3.设置",BLACK,WHITE);
+   // 获取当前活动屏幕
+    lv_obj_t *scr = lv_scr_act();
+    // 如果需要先清理以前的组件，可以使用 lv_obj_clean(scr);
+    lv_obj_clean(scr);
+
+    // -------------------------
+    // 0. 可选：为屏幕或背景设置颜色等样式
+    // -------------------------
+    lv_obj_set_style_bg_color(scr, lv_color_white(), LV_PART_MAIN);
+
+    // -------------------------
+    // 1. 主标题
+    // -------------------------
+    lv_obj_t *label_title = lv_label_create(scr);
+    lv_label_set_text(label_title, "Fingerprint Access System");
+    // 将主标题放在屏幕正中稍靠上位置，例如Y偏移 -50
+    lv_obj_align(label_title, LV_ALIGN_CENTER, 0, -50);
+
+    // 创建并应用一个标题样式，使文字变大
+    static lv_style_t style_title;
+    lv_style_init(&style_title);
+    // 使用内置的 Montserrat 28 号字体（需在配置中启用）
+    lv_style_set_text_font(&style_title, &lv_font_montserrat_28);
+    // 如果想改颜色，也可加 lv_style_set_text_color(...)
+    lv_obj_add_style(label_title, &style_title, 0);
+
+    // -------------------------
+    // 2. 选项1：Unlock（需显示蓝色）
+    // -------------------------
+    lv_obj_t *label_option1 = lv_label_create(scr);
+    lv_label_set_text(label_option1, "1. Unlock");
+    lv_obj_align(label_option1, LV_ALIGN_CENTER, 0, -10);
+
+    // 将文字设置为蓝色
+    lv_obj_set_style_text_color(label_option1, lv_palette_main(LV_PALETTE_BLUE), 0);
+
+    // lv_anim_t blink_anim;
+    // lv_anim_init(&blink_anim);
+    // lv_anim_set_var(&blink_anim, label_option1);  // 设置动画对象
+    // lv_anim_set_values(&blink_anim, LV_OPA_TRANSP, LV_OPA_COVER);  // 在透明和完全可见之间切换
+    // lv_anim_set_time(&blink_anim, 500);  // 每次变化时间为 500ms
+    // lv_anim_set_playback_time(&blink_anim, 500);  // 回退时间也为 500ms
+    // lv_anim_set_repeat_count(&blink_anim, LV_ANIM_REPEAT_INFINITE);  // 无限循环
+    // lv_anim_set_exec_cb(&blink_anim, (lv_anim_exec_xcb_t)lv_obj_set_style_opa);  // 修改透明度
+    // lv_anim_start(&blink_anim);
+    // 或者使用 lv_color_blue():
+    // lv_obj_set_style_text_color(label_option1, lv_color_blue(), 0);
+
+    // -------------------------
+    // 3. 选项2：Enroll Fingerprint
+    // -------------------------
+    // lv_obj_t *label_option2 = lv_label_create(scr);
+    // lv_label_set_text(label_option2, "2. Enroll Fingerprint");
+    // lv_obj_align(label_option2, LV_ALIGN_CENTER, 0, 20);
+
+    // -------------------------
+    // 4. 选项3：Settings
+    // -------------------------
+    lv_obj_t *label_option3 = lv_label_create(scr);
+    lv_label_set_text(label_option3, "3. Settings");
+    lv_obj_align(label_option3, LV_ALIGN_CENTER, 0, 50);
+
+     // ------------------------------------------------------------------------
+    // 6. 创建一个按钮，并在上面显示文字 "Toggle Light"
+    // ------------------------------------------------------------------------
+    // 6.1. 创建按钮对象
+    lv_obj_t *btn_light = lv_btn_create(scr);
+    // 将按钮对齐到屏幕中心，Y 偏移 +90
+    lv_obj_align(btn_light, LV_ALIGN_CENTER, 0, 90);
+
+    // 6.2. 在按钮上创建一个标签用于显示文字
+    lv_obj_t *label_btn = lv_label_create(btn_light);
+    lv_label_set_text(label_btn, "Toggle Light");
+    // lv_obj_center(label_btn); // 把标签居中到按钮里
+
+    // 6.3. 给按钮添加点击事件回调
+    //      当用户点击按钮时，调用 toggle_light() 来开/关灯
+    lv_obj_add_event_cb(btn_light, btn_light_event_cb, LV_EVENT_CLICKED, NULL);
+
+    // 如果想做进一步美化，例如修改文字颜色、背景颜色，
+    // 可以对各标签或屏幕设置 style
+    // 示例：改变文字颜色 -> lv_obj_set_style_text_color(label_title, lv_color_hex(0x000000), 0);
+    // 示例：改变屏幕背景色 -> lv_obj_set_style_bg_color(scr, lv_color_white(), 0);	
 }
 /****************************************************************************************************/
 void jiesuo(void)	//解锁界面
 {
 	LCD_Clear(WHITE);
-    LCD_ShowString(220,280, (u8 *)"解锁方式",BLACK,WHITE);
-    LCD_ShowString(180,380, (u8 *)"1.指纹",BLACK,WHITE);
-    LCD_ShowString(230,380, (u8 *)"2.密码",BLACK,WHITE);
-    LCD_ShowString(280,380, (u8 *)"3.返回",BLACK,WHITE);
+    // LCD_ShowString(220,280, (u8 *)"解锁方式",BLACK,WHITE);
+    // LCD_ShowString(180,380, (u8 *)"1.指纹",BLACK,WHITE);
+    // LCD_ShowString(230,380, (u8 *)"2.密码",BLACK,WHITE);
+    // LCD_ShowString(280,380, (u8 *)"3.返回",BLACK,WHITE);
+    lv_obj_t *scr = lv_scr_act();
+    lv_obj_clean(scr);
+
+    // 设置屏幕背景为白色
+    lv_obj_set_style_bg_color(scr, lv_color_white(), LV_PART_MAIN);
+
+    // 标题：解锁方式
+    lv_obj_t *label_title = lv_label_create(scr);
+    lv_label_set_text(label_title, "Unlock Method");
+    lv_obj_align(label_title, LV_ALIGN_TOP_MID, 0, 20);
+
+    static lv_style_t style_title;
+    lv_style_init(&style_title);
+    lv_style_set_text_font(&style_title, &lv_font_montserrat_28);
+    lv_obj_add_style(label_title, &style_title, 0);
+
+    // 选项 1: 指纹解锁
+    lv_obj_t *label_option1 = lv_label_create(scr);
+    lv_label_set_text(label_option1, "1. Fingerprint Unlock");
+    lv_obj_align(label_option1, LV_ALIGN_CENTER, 0, -30);
+
+    // 选项 2: 密码
+    lv_obj_t *label_option2 = lv_label_create(scr);
+    lv_label_set_text(label_option2, "2. Password");
+    lv_obj_align(label_option2, LV_ALIGN_CENTER, 0, 10);
+
+    // 选项 3: 返回（红色字体）
+    lv_obj_t *label_option3 = lv_label_create(scr);
+    lv_label_set_text(label_option3, "3. Back");
+    lv_obj_align(label_option3, LV_ALIGN_CENTER, 0, 50);
+    lv_obj_set_style_text_color(label_option3, lv_palette_main(LV_PALETTE_RED), 0);
 }
 /****************************************************************************************************/
 void zhujiemian1(void)		//显示管理员设置界面
 {
 	LCD_Clear(WHITE);
-    LCD_ShowString(220,280, (u8 *)"管理员设置",BLACK,WHITE);
-    LCD_ShowString(100,380, (u8 *)"1.修改解锁密码",BLACK,WHITE);
-    LCD_ShowString(230,380, (u8 *)"2.指纹管理",BLACK,WHITE);
-    LCD_ShowString(330,380, (u8 *)"3.退出",BLACK,WHITE);
+    // LCD_ShowString(220,280, (u8 *)"管理员设置",BLACK,WHITE);
+    // LCD_ShowString(100,380, (u8 *)"1.修改解锁密码",BLACK,WHITE);
+    // LCD_ShowString(230,380, (u8 *)"2.指纹管理",BLACK,WHITE);
+    // LCD_ShowString(330,380, (u8 *)"3.退出",BLACK,WHITE);
+    lv_obj_t *scr = lv_scr_act();
+    lv_obj_clean(scr);
+
+    // 设置屏幕背景为白色
+    lv_obj_set_style_bg_color(scr, lv_color_white(), LV_PART_MAIN);
+
+    // 标题：管理员设置
+    lv_obj_t *label_title = lv_label_create(scr);
+    lv_label_set_text(label_title, "Admin Settings");
+    lv_obj_align(label_title, LV_ALIGN_TOP_MID, 0, 20);
+
+    static lv_style_t style_title;
+    lv_style_init(&style_title);
+    lv_style_set_text_font(&style_title, &lv_font_montserrat_28);
+    lv_obj_add_style(label_title, &style_title, 0);
+
+    // 选项 1: 修改解锁密码
+    lv_obj_t *label_option1 = lv_label_create(scr);
+    lv_label_set_text(label_option1, "1. Change Unlock Password");
+    lv_obj_align(label_option1, LV_ALIGN_CENTER, 0, -30);
+
+    // 选项 2: 指纹管理
+    lv_obj_t *label_option2 = lv_label_create(scr);
+    lv_label_set_text(label_option2, "2. Fingerprint Management");
+    lv_obj_align(label_option2, LV_ALIGN_CENTER, 0, 10);
+
+    // 选项 3: 返回（红色字体）
+    lv_obj_t *label_option3 = lv_label_create(scr);
+    lv_label_set_text(label_option3, "3. Back");
+    lv_obj_align(label_option3, LV_ALIGN_CENTER, 0, 50);
+    lv_obj_set_style_text_color(label_option3, lv_palette_main(LV_PALETTE_RED), 0);
 }
 /****************************************************************************************************/
 void shanzhiwen(void)	//删指纹界面
 {
-	LCD_Clear(WHITE);
-    LCD_ShowString(220,280, (u8 *)"删除指纹",BLACK,WHITE);
-    LCD_ShowString(100,380, (u8 *)"1.删除单个指纹",BLACK,WHITE);
-    LCD_ShowString(230,380, (u8 *)"2.清空指纹库",BLACK,WHITE);
-    LCD_ShowString(340,380, (u8 *)"3.返回",BLACK,WHITE);
+	// LCD_Clear(WHITE);
+    // LCD_ShowString(220,280, (u8 *)"删除指纹",BLACK,WHITE);
+    // LCD_ShowString(100,380, (u8 *)"1.删除单个指纹",BLACK,WHITE);
+    // LCD_ShowString(230,380, (u8 *)"2.清空指纹库",BLACK,WHITE);
+    // LCD_ShowString(340,380, (u8 *)"3.返回",BLACK,WHITE);
+    lv_obj_t *scr = lv_scr_act();
+    lv_obj_clean(scr);
+
+    // 设置屏幕背景为白色
+    lv_obj_set_style_bg_color(scr, lv_color_white(), LV_PART_MAIN);
+
+    // 标题：删除指纹
+    lv_obj_t *label_title = lv_label_create(scr);
+    lv_label_set_text(label_title, "Delete Fingerprint");
+    lv_obj_align(label_title, LV_ALIGN_TOP_MID, 0, 20);
+
+    static lv_style_t style_title;
+    lv_style_init(&style_title);
+    lv_style_set_text_font(&style_title, &lv_font_montserrat_28);
+    lv_obj_add_style(label_title, &style_title, 0);
+
+    // 选项 1: 删除单个指纹
+    lv_obj_t *label_option1 = lv_label_create(scr);
+    lv_label_set_text(label_option1, "1. Delete Single Fingerprint");
+    lv_obj_align(label_option1, LV_ALIGN_CENTER, 0, -30);
+
+    // 选项 2: 删除所有指纹
+    lv_obj_t *label_option2 = lv_label_create(scr);
+    lv_label_set_text(label_option2, "2. Delete All Fingerprints");
+    lv_obj_align(label_option2, LV_ALIGN_CENTER, 0, 10);
+
+    // 选项 3: 返回（红色字体）
+    lv_obj_t *label_option3 = lv_label_create(scr);
+    lv_label_set_text(label_option3, "3. Back");
+    lv_obj_align(label_option3, LV_ALIGN_CENTER, 0, 50);
+    lv_obj_set_style_text_color(label_option3, lv_palette_main(LV_PALETTE_RED), 0);
 }
 /****************************************************************************************************/
 void zhiwenguanli(void)		//指纹管理系统界面
 {
-	LCD_Clear(WHITE);
-    LCD_ShowString(220,280, (u8 *)"管理指纹",BLACK,WHITE);
-    LCD_ShowString(100,380, (u8 *)"1.添加指纹",BLACK,WHITE);
-    LCD_ShowString(200,380, (u8 *)"2.删除指纹",BLACK,WHITE);
-    LCD_ShowString(300,380, (u8 *)"3.返回",BLACK,WHITE);
+	// LCD_Clear(WHITE);
+    // LCD_ShowString(220,280, (u8 *)"管理指纹",BLACK,WHITE);
+    // LCD_ShowString(100,380, (u8 *)"1.添加指纹",BLACK,WHITE);
+    // LCD_ShowString(200,380, (u8 *)"2.删除指纹",BLACK,WHITE);
+    // LCD_ShowString(300,380, (u8 *)"3.返回",BLACK,WHITE);
+    lv_obj_t *scr = lv_scr_act();
+    lv_obj_clean(scr);
+
+    // 设置屏幕背景为白色
+    lv_obj_set_style_bg_color(scr, lv_color_white(), LV_PART_MAIN);
+
+    // 标题：指纹管理
+    lv_obj_t *label_title = lv_label_create(scr);
+    lv_label_set_text(label_title, "Fingerprint Management");
+    lv_obj_align(label_title, LV_ALIGN_TOP_MID, 0, 20);
+
+    static lv_style_t style_title;
+    lv_style_init(&style_title);
+    lv_style_set_text_font(&style_title, &lv_font_montserrat_28);
+    lv_obj_add_style(label_title, &style_title, 0);
+
+    // 选项 1: 添加指纹
+    lv_obj_t *label_option1 = lv_label_create(scr);
+    lv_label_set_text(label_option1, "1. Add Fingerprint");
+    lv_obj_align(label_option1, LV_ALIGN_CENTER, 0, -30);
+
+    // 选项 2: 删除指纹
+    lv_obj_t *label_option2 = lv_label_create(scr);
+    lv_label_set_text(label_option2, "2. Delete Fingerprint");
+    lv_obj_align(label_option2, LV_ALIGN_CENTER, 0, 10);
+
+    // 选项 3: 返回（红色字体）
+    lv_obj_t *label_option3 = lv_label_create(scr);
+    lv_label_set_text(label_option3, "3. Back");
+    lv_obj_align(label_option3, LV_ALIGN_CENTER, 0, 50);
+    lv_obj_set_style_text_color(label_option3, lv_palette_main(LV_PALETTE_RED), 0);
 }
 void shezhi(void)	//显示输入管理员密码界面
 {
-	LCD_Clear(WHITE);
-    LCD_ShowString(200,280, (u8 *)"输入管理员密码",BLACK,WHITE);
-    LCD_ShowString(120,380, (u8 *)"-",BLACK,WHITE);
-    LCD_ShowString(220,380, (u8 *)"-",BLACK,WHITE);
-    LCD_ShowString(320,380, (u8 *)"-",BLACK,WHITE);
+	// LCD_Clear(WHITE);
+    // LCD_ShowString(200,280, (u8 *)"输入管理员密码",BLACK,WHITE);
+    // LCD_ShowString(120,380, (u8 *)"-",BLACK,WHITE);
+    // LCD_ShowString(220,380, (u8 *)"-",BLACK,WHITE);
+    // LCD_ShowString(320,380, (u8 *)"-",BLACK,WHITE);
+
+    // 1. Get current active screen and clear it
+    lv_obj_t *scr = lv_scr_act();
+    lv_obj_clean(scr);
+
+    // 2. Set background to white
+    lv_obj_set_style_bg_color(scr, lv_color_white(), LV_PART_MAIN);
+
+    // 3. Create a label for "Input Admin Password"
+    lv_obj_t *label_title = lv_label_create(scr);
+    lv_label_set_text(label_title, "Input Admin Password");
+    lv_obj_align(label_title, LV_ALIGN_TOP_MID, 0, 20);
+
+    static lv_style_t style_title;
+    lv_style_init(&style_title);
+    lv_style_set_text_font(&style_title, &lv_font_montserrat_28);
+    lv_obj_add_style(label_title, &style_title, 0);
+
+    // 4. Create three dash labels (as placeholders)
+    lv_obj_t *label_dash1 = lv_label_create(scr);
+    lv_label_set_text(label_dash1, "-");
+    lv_obj_align(label_dash1, LV_ALIGN_CENTER, -60, 40);
+
+    lv_obj_t *label_dash2 = lv_label_create(scr);
+    lv_label_set_text(label_dash2, "-");
+    lv_obj_align(label_dash2, LV_ALIGN_CENTER, 0, 40);
+
+    lv_obj_t *label_dash3 = lv_label_create(scr);
+    lv_label_set_text(label_dash3, "-");
+    lv_obj_align(label_dash3, LV_ALIGN_CENTER, 60, 40);
 }
 /****************************************************************************************************/
 void xiugai(void)	//显示输入管理员密码界面
 {
-	LCD_Clear(WHITE);
-    LCD_ShowString(200,280, (u8 *)"输入修改后管理员密码",BLACK,WHITE);
-    LCD_ShowString(120,380, (u8 *)"-",BLACK,WHITE);
-    LCD_ShowString(220,380, (u8 *)"-",BLACK,WHITE);
-    LCD_ShowString(320,380, (u8 *)"-",BLACK,WHITE);
+	// LCD_Clear(WHITE);
+    // LCD_ShowString(200,280, (u8 *)"输入修改后管理员密码",BLACK,WHITE);
+    // LCD_ShowString(120,380, (u8 *)"-",BLACK,WHITE);
+    // LCD_ShowString(220,380, (u8 *)"-",BLACK,WHITE);
+    // LCD_ShowString(320,380, (u8 *)"-",BLACK,WHITE);
+    // 1. 获取当前活动屏幕并清空
+    lv_obj_t *scr = lv_scr_act();
+    lv_obj_clean(scr);
+
+    // 2. 设置背景颜色为白色
+    lv_obj_set_style_bg_color(scr, lv_color_white(), LV_PART_MAIN);
+
+    // 3. 创建并设置标题 “输入修改后管理员密码”
+    lv_obj_t *label_title = lv_label_create(scr);
+    lv_label_set_text(label_title, "Input New Admin Password"); 
+    // 如果想要中文，可以用 "输入修改后管理员密码"
+    lv_obj_align(label_title, LV_ALIGN_TOP_MID, 0, 20);
+
+    // 如果想要更大字体，可使用样式
+    static lv_style_t style_title;
+    lv_style_init(&style_title);
+    lv_style_set_text_font(&style_title, &lv_font_montserrat_28);
+    lv_obj_add_style(label_title, &style_title, 0);
+
+    // 4. 创建 3 条“横线”标签，可视为占位符
+    lv_obj_t *label_dash1 = lv_label_create(scr);
+    lv_label_set_text(label_dash1, "-");
+    lv_obj_align(label_dash1, LV_ALIGN_CENTER, -60, 40);
+
+    lv_obj_t *label_dash2 = lv_label_create(scr);
+    lv_label_set_text(label_dash2, "-");
+    lv_obj_align(label_dash2, LV_ALIGN_CENTER, 0, 40);
+
+    lv_obj_t *label_dash3 = lv_label_create(scr);
+    lv_label_set_text(label_dash3, "-");
+    lv_obj_align(label_dash3, LV_ALIGN_CENTER, 60, 40);
 }
 /****************************************************************************************************/
 
 void Show_Message(void)     //退出到主界面
 {   
-    LCD_Clear(WHITE);
-    LCD_ShowString(220,380, (u8 *)"退出",BLACK,WHITE);
+    // LCD_Clear(WHITE);
+    // LCD_ShowString(220,380, (u8 *)"退出",BLACK,WHITE);
+    lv_obj_t *scr = lv_scr_act();
+    lv_obj_clean(scr);  // 清空屏幕
+
+    // 设置屏幕背景为白色
+    lv_obj_set_style_bg_color(scr, lv_color_white(), LV_PART_MAIN);
+
+    // 创建一个 Label 显示 "Exit"
+    lv_obj_t *label_exit = lv_label_create(scr);
+    lv_label_set_text(label_exit, "Exit");
+    lv_obj_set_style_text_color(label_exit, lv_palette_main(LV_PALETTE_RED), 0);  // 设置为红色字体
+
+    // 设置 Label 使用 lv_font_montserrat_28 字体
+    static lv_style_t style_exit;
+    lv_style_init(&style_exit);
+    lv_style_set_text_font(&style_exit, &lv_font_montserrat_28);  // 设置字体为 28
+    lv_obj_add_style(label_exit, &style_exit, 0);
+
+    // 初始位置在屏幕左侧
+    lv_obj_set_pos(label_exit, -lv_obj_get_width(label_exit), lv_obj_get_height(scr) / 2);
+
+    // 获取屏幕宽度，用于计算终点位置
+    int32_t screen_center_x = (lv_obj_get_width(scr) - lv_obj_get_width(label_exit)) / 2;
+
+    // 创建滑动动画
+    lv_anim_t anim;
+    lv_anim_init(&anim);
+    lv_anim_set_var(&anim, label_exit);
+    lv_anim_set_values(&anim, -lv_obj_get_width(label_exit), screen_center_x);  // 从左滑动到屏幕中间
+    lv_anim_set_time(&anim, 1500);  // 动画时长 1500ms
+    lv_anim_set_exec_cb(&anim, (lv_anim_exec_xcb_t)lv_obj_set_x);  // 修改 X 坐标
+    lv_anim_set_path_cb(&anim, lv_anim_path_ease_in_out);  // 平滑动画曲线
+    lv_anim_start(&anim);
+
+    // // 创建淡入动画，并设置为呼吸灯效果
+    // lv_anim_t fade;
+    // lv_anim_init(&fade);
+    // lv_anim_set_var(&fade, label_exit);
+    // lv_anim_set_values(&fade, LV_OPA_TRANSP, LV_OPA_COVER);  // 从透明到完全可见
+    // lv_anim_set_time(&fade, 1000);  // 单次淡入时间 1000ms
+    // lv_anim_set_playback_time(&fade, 1000);  // 添加播放回退时间，让亮度从完全可见回到透明
+    // // lv_anim_set_repeat_count(&fade, LV_ANIM_REPEAT_INFINITE);  // 无限循环
+    // lv_anim_set_exec_cb(&fade, (lv_anim_exec_xcb_t)lv_obj_set_style_opa);
+    // lv_anim_start(&fade);
 }
 
 
@@ -189,11 +513,16 @@ void  FR_Task(void)
 			case 5:	
 				if(flag5==1)
 				{
-					code_lock();					
+					create_password_lock_screen();
+                    	
 					flag5=0;					
-				}
-                OpenDoor(30);
-                mode=1,flag1=0;	//退回主界面
+					
+				}   
+                if(passflag==1){
+                    OpenDoor(30);
+                    mode=1,flag1=0;	//退回主界面
+                }
+                
 				break;
 //显示管理员设置界面-----------------------------------------------------------------------------------/					
 			case 6:	
@@ -361,7 +690,7 @@ void  Add_FR(void)
           if(sure==0x00)
           { 
               LCD_Clear(WHITE);
-              LCD_ShowString(100,280, (u8 *)"输入指纹1正常！！！",BLACK,WHITE);
+              LCD_ShowString(100,280, (u8 *)"输入指纹1正常!!!",BLACK,WHITE);
 //              AS608_INFO("\r\n");
             
                sure=PS_HighSpeedSearch(CHAR_BUFFER1,0,PS_MAXNUM,&ID);
@@ -369,7 +698,7 @@ void  Add_FR(void)
             {
              sprintf(IDS,"%d",ID);
                 LCD_Clear(WHITE);
-             LCD_ShowString(100,280, (u8 *)"指纹已存在，指纹ID：",BLACK,WHITE);
+             LCD_ShowString(100,280, (u8 *)"指纹已存在,指纹ID:",BLACK,WHITE);
              LCD_ShowString(300,280, (u8 *)IDS ,BLACK,WHITE);  
              delay_ms(2000);          
 //             AS608_INFO ("%d！！！\r\n\r\n",ID);             
@@ -407,7 +736,7 @@ void  Add_FR(void)
           if(sure==0x00)
           { 
 			LCD_Clear(WHITE);
-            LCD_ShowString(100,280, (u8 *)"输入指纹2正常！！！",BLACK,WHITE);    
+            LCD_ShowString(100,280, (u8 *)"输入指纹2正常!!!",BLACK,WHITE);    
 //              AS608_INFO("\r\n");
             i=0;
             j=2;                   /*跳转到第3步*/
@@ -637,6 +966,132 @@ void Del_FR(void)
   * @param  无
   * @retval 无
   */
+
+#define MAX_PASS_LEN  8                  /* 最大输入位数 */
+static const char * correct_pass = "1234";  /* 正确密码，可根据需要修改 */
+
+/* 用于存储用户输入 */
+static char input_buffer[MAX_PASS_LEN + 1] = {0};
+static uint8_t input_len = 0;
+
+/* 用于显示输入和提示信息的控件 */
+static lv_obj_t * label_input;
+static lv_obj_t * label_hint;
+
+/*
+ * 按钮矩阵文本映射
+ * - "Del" 删除
+ * - "OK"  确认
+ */
+static const char * btnm_map[] = {
+    "1", "2", "3", "\n",
+    "4", "5", "6", "\n",
+    "7", "8", "9", "\n",
+    "Del", "0", "OK", ""
+};
+
+static void add_char_to_input(const char c)
+{
+    if (input_len < MAX_PASS_LEN) {
+        input_buffer[input_len] = c;
+        input_len++;
+        input_buffer[input_len] = '\0';  
+    }
+}
+
+static void remove_char_from_input(void)
+{
+    if (input_len > 0) {
+        input_len--;
+        input_buffer[input_len] = '\0';
+    }
+}
+
+static void update_input_label(void)
+{
+    lv_label_set_text(label_input, input_buffer);
+}
+
+static void check_password(void)
+{
+    if (strcmp(input_buffer, correct_pass) == 0) {
+        lv_label_set_text(label_hint, "Unlock successful!");
+        passflag=1;
+        // TODO: 密码正确后的操作
+    } else {
+        lv_label_set_text(label_hint, "Incorrect password, please try again!");
+    }
+
+    memset(input_buffer, 0, sizeof(input_buffer));
+    input_len = 0;
+    update_input_label();
+}
+
+/* 按钮矩阵事件回调 */
+static void btnm_event_cb(lv_event_t * e)
+{
+    lv_obj_t * btnm = lv_event_get_target(e);
+    const char * txt = lv_btnmatrix_get_btn_text(btnm, lv_btnmatrix_get_selected_btn(btnm));
+
+    if (txt == NULL) return;
+
+    if (strcmp(txt, "Del") == 0) {
+        remove_char_from_input();
+        update_input_label();
+    }
+    else if (strcmp(txt, "OK") == 0) {
+        check_password();
+    }
+    else {
+        add_char_to_input(txt[0]);  
+        update_input_label();
+    }
+}
+
+void create_password_lock_screen(void)
+{
+    /* 1. 创建一个新的屏幕对象 */
+    lv_obj_t * scr = lv_obj_create(NULL);
+
+    /* 2. 创建标题标签 */
+    lv_obj_t * label_title = lv_label_create(scr);
+    lv_label_set_text(label_title, "Please enter password:");
+    lv_obj_align(label_title, LV_ALIGN_TOP_MID, 0, 20);
+
+    /* 3. 用于显示当前输入的标签 */
+    label_input = lv_label_create(scr);
+    lv_label_set_text(label_input, "");
+    lv_obj_set_style_text_font(label_input, &lv_font_montserrat_28, 0);  
+    lv_obj_align(label_input, LV_ALIGN_TOP_MID, 0, 60);
+
+    /* 4. 用于显示提示/结果的标签 */
+    label_hint = lv_label_create(scr);
+    lv_label_set_text(label_hint, "Awaiting input...");
+    lv_obj_align(label_hint, LV_ALIGN_TOP_MID, 0, 100);
+
+    /* 5. 创建按钮矩阵（输入数字、删除和确认） */
+    lv_obj_t * btnm = lv_btnmatrix_create(scr);
+    lv_btnmatrix_set_map(btnm, btnm_map);
+    lv_obj_align(btnm, LV_ALIGN_CENTER, 0, 40);
+
+    /* ---------- 关键部分：让按钮尺寸变大 ---------- */
+    lv_obj_set_style_pad_all(btnm, 10, 0);       /* 矩阵四周边距 */
+    lv_obj_set_style_pad_row(btnm, 10, 0);       /* 行间距 */
+    lv_obj_set_style_pad_column(btnm, 10, 0);    /* 列间距 */
+    lv_obj_set_style_width(btnm, 80, LV_PART_ITEMS | LV_STATE_DEFAULT);
+    lv_obj_set_style_height(btnm, 60, LV_PART_ITEMS | LV_STATE_DEFAULT);
+
+    /* 如果需要更大的文字，可以启用并设置大字体 */
+    // lv_obj_set_style_text_font(btnm, &lv_font_montserrat_28, LV_PART_ITEMS | LV_STATE_DEFAULT);
+
+    lv_obj_add_event_cb(btnm, btnm_event_cb, LV_EVENT_VALUE_CHANGED, NULL);
+
+    /* 6. 切换到此新屏幕 */
+    lv_scr_load(scr);
+}
+
+
+
 void code_lock(void)
 {
     u8 t = 0;
@@ -968,7 +1423,35 @@ void code_lock(void)
         i++;
     }
 }
+void show_num_with_dash_alignment(unsigned char index, const char* str)
+{
+    // 创建一个新的 label
+    lv_obj_t *label_num = lv_label_create(lv_scr_act());
+    lv_label_set_text(label_num, str);
 
+    // 根据 index 决定坐标
+    // 参考 dash1/dash2/dash3:
+    // dash1: lv_obj_align(label_dash1, LV_ALIGN_CENTER, -60, 40);
+    // dash2: lv_obj_align(label_dash2, LV_ALIGN_CENTER,  0, 40);
+    // dash3: lv_obj_align(label_dash3, LV_ALIGN_CENTER, 60, 40);
+    int x_ofs = 0;
+    int y_ofs = 40; // same y offset as dash1/2/3
+
+    switch (index) {
+        case 1: x_ofs = -60; break; // first digit
+        case 2: x_ofs = 0;    break; // second digit
+        case 3: x_ofs = 60;  break; // third digit
+        default: x_ofs = 100; // or ignore
+    }
+
+    lv_obj_align(label_num, LV_ALIGN_CENTER, x_ofs, y_ofs);
+
+    // 如果需要更大字体或不同颜色，可以再添加 style
+    // static lv_style_t style_digits;
+    // lv_style_init(&style_digits);
+    // lv_style_set_text_font(&style_digits, &lv_font_montserrat_28);
+    // lv_obj_add_style(label_num, &style_digits, 0);
+}
 /**
   * @brief  按键输入管理员密码
   * @param  无
@@ -976,76 +1459,174 @@ void code_lock(void)
   */
 void key_scan(void)	
 {
-	unsigned char num=0;
-    int flag1=0,flag2=0,flag3=0;//防止长按输入多位密码，清除标志位
-	unsigned int i=0;
+	// unsigned char num=0;
+    // int flag1=0,flag2=0,flag3=0;//防止长按输入多位密码，清除标志位
+	// unsigned int i=0;
+    // char nums[4];
+    // if((flag0==0)&&(KEY_S3_READ()!=0)){//第一次进入输入密码界面，直到k3按键松开，flag0变1，密码3才能输入
+    //     flag0=1;
+    // }
+	// if((KEY_S3_READ()==0)&&(flag3==0)&&(flag0==1))
+	// {        
+	// 	delay_ms(50);
+    //     flag3=0;
+	// 		while(KEY_S3_READ()==0)
+	// 		{
+	// 			if(Password_count<=3)		//如果密码位数小于3
+	// 			{
+    //                 num=3;
+    //                 sprintf(nums,"%d",num);
+    //                 LCD_ShowString(Password_count*100+20,380,(u8*)nums,BLACK,WHITE);
+	// 				Password[Password_count-1]=num;			 //把输入密码存入数组
+	// 				if(KEY_S3_READ()!=0)							//按键松开 输入下一位密码
+	// 				{
+	// 					Password_count++;
+    //                     flag3=1;
+	// 					break;
+	// 				}
+	// 			}		
+	// 	}
+	// }
+    // if((KEY_S2_READ()==0)&&(flag2==0))
+	// {
+	// 	delay_ms(50);
+    //     flag2=0;
+	// 		while(KEY_S2_READ()==0)
+	// 		{
+	// 			if(Password_count<=3)		//如果密码位数小于3
+	// 			{
+    //                 num=2;
+    //                 sprintf(nums,"%d",num);
+    //                 LCD_ShowString(Password_count*100+20,380,(u8*)nums,BLACK,WHITE);
+	// 				Password[Password_count-1]=num;			 //把输入密码存入数组
+	// 				if(KEY_S2_READ()!=0)							//按键松开 输入下一位密码
+	// 				{
+	// 					Password_count++;
+    //                     flag2=0;                        
+	// 					break;
+	// 				}
+	// 			}		
+	// 	}
+	// }
+    // if((KEY_S1_READ()==0)&&(flag1==0))
+	// {
+	// 	delay_ms(50);
+    //     flag1=1;
+	// 		while(KEY_S1_READ()==0)
+	// 		{
+	// 			if(Password_count<=3)		//如果密码位数小于3
+	// 			{
+    //                 num=1;
+    //                 sprintf(nums,"%d",num);
+    //                 LCD_ShowString(Password_count*100+20,380,(u8*)nums,BLACK,WHITE);
+	// 				Password[Password_count-1]=num;			 //把输入密码存入数组
+	// 				if(KEY_S1_READ()!=0)							//按键松开 输入下一位密码
+	// 				{
+	// 					Password_count++;
+    //                     flag1=1;                        
+	// 					break;
+	// 				}
+	// 			}		
+	// 	}
+	// }
+    
+      unsigned char num = 0;
+    int flag1 = 0, flag2 = 0, flag3 = 0;  
     char nums[4];
-    if((flag0==0)&&(KEY_S3_READ()!=0)){//第一次进入输入密码界面，直到k3按键松开，flag0变1，密码3才能输入
-        flag0=1;
+
+    // 这里假设已经有全局变量:
+    // extern unsigned char Password[4];    // 存放密码的数组
+    // extern unsigned char Password_count; // 当前输入了多少位 (1~4)
+    // extern int flag0;
+    // 以及按键检测函数 KEY_S1_READ(), KEY_S2_READ(), KEY_S3_READ()
+    // 延时函数 delay_ms()
+
+    // 如果 flag0==0, 并且 S3 已经松开, 则允许输入:
+    if ((flag0 == 0) && (KEY_S3_READ() != 0))
+    {
+        flag0 = 1;
     }
-	if((KEY_S3_READ()==0)&&(flag3==0)&&(flag0==1))
-	{        
-		delay_ms(50);
-        flag3=0;
-			while(KEY_S3_READ()==0)
-			{
-				if(Password_count<=3)		//如果密码位数小于3
-				{
-                    num=3;
-                    sprintf(nums,"%d",num);
-                    LCD_ShowString(Password_count*100+20,380,(u8*)nums,BLACK,WHITE);
-					Password[Password_count-1]=num;			 //把输入密码存入数组
-					if(KEY_S3_READ()!=0)							//按键松开 输入下一位密码
-					{
-						Password_count++;
-                        flag3=1;
-						break;
-					}
-				}		
-		}
-	}
-    if((KEY_S2_READ()==0)&&(flag2==0))
-	{
-		delay_ms(50);
-        flag2=0;
-			while(KEY_S2_READ()==0)
-			{
-				if(Password_count<=3)		//如果密码位数小于3
-				{
-                    num=2;
-                    sprintf(nums,"%d",num);
-                    LCD_ShowString(Password_count*100+20,380,(u8*)nums,BLACK,WHITE);
-					Password[Password_count-1]=num;			 //把输入密码存入数组
-					if(KEY_S2_READ()!=0)							//按键松开 输入下一位密码
-					{
-						Password_count++;
-                        flag2=0;                        
-						break;
-					}
-				}		
-		}
-	}
-    if((KEY_S1_READ()==0)&&(flag1==0))
-	{
-		delay_ms(50);
-        flag1=1;
-			while(KEY_S1_READ()==0)
-			{
-				if(Password_count<=3)		//如果密码位数小于3
-				{
-                    num=1;
-                    sprintf(nums,"%d",num);
-                    LCD_ShowString(Password_count*100+20,380,(u8*)nums,BLACK,WHITE);
-					Password[Password_count-1]=num;			 //把输入密码存入数组
-					if(KEY_S1_READ()!=0)							//按键松开 输入下一位密码
-					{
-						Password_count++;
-                        flag1=1;                        
-						break;
-					}
-				}		
-		}
-	}
+
+    // ========== Key S3 ==========
+    if ((KEY_S3_READ() == 0) && (flag3 == 0) && (flag0 == 1))
+    {
+        delay_ms(50);
+        flag3 = 0;
+        while (KEY_S3_READ() == 0)
+        {
+            // 如果当前还没输入满 3 位(或 4 位)，这里假设最多 3 位
+            if (Password_count <= 3)
+            {
+                num = 3;
+                sprintf(nums, "%d", num);
+
+                // 显示数字到指定位置
+                show_num_with_dash_alignment(Password_count, nums);
+
+                // 存入密码数组
+                Password[Password_count - 1] = num;
+
+                // 松开按键后，下一位
+                if (KEY_S3_READ() != 0)
+                {
+                    Password_count++;
+                    flag3 = 1;
+                    break;
+                }
+            }
+        }
+    }
+
+    // ========== Key S2 ==========
+    if ((KEY_S2_READ() == 0) && (flag2 == 0))
+    {
+        delay_ms(50);
+        flag2 = 0;
+        while (KEY_S2_READ() == 0)
+        {
+            if (Password_count <= 3)
+            {
+                num = 2;
+                sprintf(nums, "%d", num);
+
+                show_num_with_dash_alignment(Password_count, nums);
+                Password[Password_count - 1] = num;
+
+                if (KEY_S2_READ() != 0)
+                {
+                    Password_count++;
+                    flag2 = 0;
+                    break;
+                }
+            }
+        }
+    }
+
+    // ========== Key S1 ==========
+    if ((KEY_S1_READ() == 0) && (flag1 == 0))
+    {
+        delay_ms(50);
+        flag1 = 1;
+        while (KEY_S1_READ() == 0)
+        {
+            if (Password_count <= 3)
+            {
+                num = 1;
+                sprintf(nums, "%d", num);
+
+                show_num_with_dash_alignment(Password_count, nums);
+                Password[Password_count - 1] = num;
+
+                if (KEY_S1_READ() != 0)
+                {
+                    Password_count++;
+                    flag1 = 1;
+                    break;
+                }
+            }
+        }
+    }
+    
 }
 /**
   * @brief  进来管理员密码匹配
@@ -1075,17 +1656,42 @@ unsigned char pipei(void)
   */
 unsigned char pipei2(void)
 {
-	if((Password[0]==Password1[0]&&Password[1]==Password1[1]&&Password[2]==Password1[2]))
-	{
-        LCD_ShowString(200,180, (u8 *)"与上次密码相同！！！",BLACK,WHITE);
-		delay_ms(1000);
-		return 1;		//1代表正确，0代表错误
-	}
-	else
-	{
-        LCD_ShowString(200,180, (u8 *)"修改成功！！！",BLACK,WHITE);
-		delay_ms(1000);
-		return 0;
-	}
+	// if((Password[0]==Password1[0]&&Password[1]==Password1[1]&&Password[2]==Password1[2]))
+	// {
+    //     LCD_ShowString(200,180, (u8 *)"与上次密码相同！！！",BLACK,WHITE);
+	// 	delay_ms(1000);
+	// 	return 1;		//1代表正确，0代表错误
+	// }
+	// else
+	// {
+    //     LCD_ShowString(200,180, (u8 *)"修改成功！！！",BLACK,WHITE);
+	// 	delay_ms(1000);
+	// 	return 0;
+	// }
+    lv_obj_t *scr = lv_scr_act();  // 获取当前活动屏幕
+    lv_obj_clean(scr);            // 清空屏幕
+
+    if ((Password[0] == Password1[0]) &&
+        (Password[1] == Password1[1]) &&
+        (Password[2] == Password1[2]))
+    {
+        // 创建 Label 显示 "与上次密码相同！！！"
+        lv_obj_t *label = lv_label_create(scr);
+        lv_label_set_text(label, "Same as Previous Password!!!");
+        lv_obj_align(label, LV_ALIGN_TOP_MID, 0, 20);  // 顶部居中，Y 偏移 20 像素
+
+        delay_ms(1000);  // 延时 1 秒
+        return 1;        // 1 代表正确
+    }
+    else
+    {
+        // 创建 Label 显示 "修改成功！！！"
+        lv_obj_t *label = lv_label_create(scr);
+        lv_label_set_text(label, "Password Changed Successfully!!!");
+        lv_obj_align(label, LV_ALIGN_TOP_MID, 0, 20);  // 顶部居中，Y 偏移 20 像素
+
+        delay_ms(1000);  // 延时 1 秒
+        return 0;        // 0 代表错误
+    }
 }
 /*********************************************END OF FILE**********************/

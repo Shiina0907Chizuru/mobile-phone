@@ -17,4 +17,6 @@ void Clean_FR(void);
 void Show_Message(void);
 void FR_Task(void);
  unsigned char pipei2(void);
+void code_lock_lvgl(void);
+void create_password_lock_screen(void);
 #endif /* __AS608_TEST_H */

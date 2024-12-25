@@ -44,3 +44,8 @@
 .\obj\stm32f4xx_it.o: ..\BaseDrive\bsp_as608.h
 .\obj\stm32f4xx_it.o: ..\BaseDrive\bsp_debug_usart.h
 .\obj\stm32f4xx_it.o: ..\BaseDrive\mp3.h
+.\obj\stm32f4xx_it.o: ..\User\../lvgl/src/hal/lv_hal_tick.h
+.\obj\stm32f4xx_it.o: ..\User\../lvgl/src/hal/../lv_conf_internal.h
+.\obj\stm32f4xx_it.o: ..\User\../lvgl/src/hal/../lv_conf_kconfig.h
+.\obj\stm32f4xx_it.o: ..\lvgl\examples\porting\../../lv_conf.h
+.\obj\stm32f4xx_it.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h

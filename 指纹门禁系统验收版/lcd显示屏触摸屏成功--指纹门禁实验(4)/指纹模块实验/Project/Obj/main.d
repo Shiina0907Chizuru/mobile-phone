@@ -52,6 +52,11 @@
 .\obj\main.o: ..\BaseDrive\w25qxx.h
 .\obj\main.o: ..\BaseDrive\spi.h
 .\obj\main.o: ..\BaseDrive\mp3.h
+.\obj\main.o: ..\Touch\touch.h
+.\obj\main.o: ..\Touch\sys.h
+.\obj\main.o: ..\Touch\ott2001a.h
+.\obj\main.o: ..\Touch\gt9147.h
+.\obj\main.o: ..\Touch\ft5206.h
 .\obj\main.o: ..\lvgl\lvgl.h
 .\obj\main.o: ..\lvgl\src/misc/lv_log.h
 .\obj\main.o: ..\lvgl\src/misc/../lv_conf_internal.h

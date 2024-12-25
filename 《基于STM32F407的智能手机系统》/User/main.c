@@ -49,7 +49,7 @@ int main(void)
 	//  rx_queue_init();
 		// AS608_Config();
 	  UART3_Configuration();   
-	//   UART5_Configuration(9600);  
+	  UART5_Configuration(9600);  
     UART6_Configuration(9600);  
 	  setMp3Dev(FLASH0);                                                  
     delay_ms(200); DCMotorGpio_Init();

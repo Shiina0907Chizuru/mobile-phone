@@ -343,9 +343,11 @@ void LCD_Fast_DrawPoint(u16 x, u16 y, u16 color)
 输出参数：无
 函数返回：无
 **********************************************************************************************************/
+//设置LCD显示方向
+//dir:0,竖屏；1,横屏
 void LCD_Display_Dir(u8 dir)
 {
-    if(dir == 0)														//	竖屏
+    if(dir == 0)			                                            // 竖屏
     {
         lcddev.dir = 0;	                                                // 竖屏
         lcddev.width = 240;
@@ -359,8 +361,10 @@ void LCD_Display_Dir(u8 dir)
             lcddev.width = 480;
             lcddev.height = 800;
         }
+        
+        LCD_Scan_Dir(R2L_D2U);
     }
-    else 																//	横屏
+    else 				                                                // 横屏
     {
         lcddev.dir = 1;	                                                // 横屏
         lcddev.width = 320;
@@ -374,9 +378,9 @@ void LCD_Display_Dir(u8 dir)
             lcddev.width = 800;
             lcddev.height = 480;
         }
+        LCD_Scan_Dir(D2U_L2R);
     }
-    
-    LCD_Scan_Dir(DFT_SCAN_DIR);											//	默认扫描方向
+    // LCD_Scan_Dir(DFT_SCAN_DIR);	                                        // 默认扫描方向
 }
 
 ///**********************************************************************************************************
@@ -976,7 +980,7 @@ void LCD_Init(void)
 
 //    LCD_WR_REG(0x29);	                                                //  开启显示
 //    
-//    LCD_Display_Dir(1);												    //	默认为横屏
+   LCD_Display_Dir(1);												    //	默认为横屏
 
 //    LCD_Clear(WHITE);
 }
